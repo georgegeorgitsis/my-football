@@ -35,7 +35,7 @@ def next_generation(current_gen, elite_size, mutation_rate):
     pop_ranked = best_teams(current_gen)
     selection_results = tournament_selection(pop_ranked, elite_size)
     matingpool = mating_pool(current_gen, selection_results)
-    children = breed_population(matingpool, elite_size)
+    children = crossover_population(matingpool, elite_size)
     # nextGeneration = mutatePopulation(children, mutation_rate)
     # return nextGeneration
 
@@ -63,7 +63,7 @@ def mating_pool(population, selection_results):
     return mating_pool_list
 
 
-def breed_population(matingpool, elite_size):
+def crossover_population(matingpool, elite_size):
     children = []
     length = len(matingpool) - elite_size
     pool = random.sample(matingpool, len(matingpool))
@@ -72,12 +72,12 @@ def breed_population(matingpool, elite_size):
         children.append(matingpool[i])
 
     for i in range(0, length):
-        child = breed(pool[i], pool[len(matingpool) - i - 1])
+        child = crossover(pool[i], pool[len(matingpool) - i - 1])
         children.append(child)
     return children
 
 
-def breed(parent1, parent2):
+def crossover(parent1, parent2):
     child = []
     child1 = []
     child2 = []
