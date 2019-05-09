@@ -3,16 +3,8 @@ from models.team import Team
 from pymongo import MongoClient
 from random import randint
 
-import numpy as np, random, operator, pandas as pd
-
-try:
-    conn = MongoClient()
-    print("Connected successfully!!!")
-except:
-    print("Could not connect to MongoDB")
-
-TOURNAMENT_PLAYERS = 2
-player_model = Player(conn)
+import random
+import numpy as np, operator, pandas as pd
 
 
 def initial_population(individuals):
@@ -37,42 +29,70 @@ def best_teams(population):
 
 
 def next_generation(population, elite_size, mutation_rate):
-    # population = best_teams(population)
-
-    selection = tournament_selection(population, elite_size)
+    selection_result = selection(population, elite_size)
 
     # matingpool = mating_pool(current_gen, selection_results)
 
-    next_population = crossover_population(selection, elite_size)
+    next_population = crossover_population(selection_result, elite_size)
 
     # population = mutate_population(population, mutation_rate)
     return next_population
 
 
-def tournament_selection(pop_ranked, elite_size):
+def selection(population, elite_size):
+    # sort teams to have the best in the beggining
+    print('TOURNAMENT SELECTION FOR:')
+    display_teams(population)
+    print('SORT OF POPULATION FOR ELITISM:')
+    population = best_teams(population)
+    display_teams(population)
+
     selection_results = []
 
     for i in range(0, elite_size):
-        selection_results.append(pop_ranked[0])
-    for i in range(0, len(pop_ranked) - elite_size):
-        tournament = []
-        for k in range(0, TOURNAMENT_PLAYERS):
-            tournament.append(random.choice(pop_ranked))
+        selection_results.append(population[0])
+        del population[0]
+    print('START OF ELITISM ')
+    display_teams(selection_results)
+    print('END OF ELITISM')
 
-        selection_results.append(best_teams(tournament)[0])
+    choices = {chromosome: chromosome.fitness for chromosome in population}
+    # print(choices)
+    print(weighted_random_choice(choices))
+    exit()
+    # print('START OF LOCAL TOURNAMENTS')
+    # for i in range(0, len(population)):
+    #     tournament = []
+    #     print('TOURNAMENT ROUND %s' % i)
+    #     print('SELECTING INDIVIDUALS FOR TOURNAMENT')
+    #     # for k in range(0, TOURNAMENT_PLAYERS):
+    #     #     tournament.append(random.choice(population))
+    #     tournament = random.sample(population, TOURNAMENT_PLAYERS)
+    #
+    #     print('selected individuals:')
+    #     display_teams(tournament)
+    #     winner = best_teams(tournament)[0]
+    #     print('winner is %s' % winner)
+    #     selection_results.append(winner)
+    #     print('SELECTION RESULTS WITH WINNER:')
+    #     display_teams(selection_results)
+    #
+    # print('RESULTS OF TOURNAMENT')
+    # display_teams(selection_results)
+    # print('END OF TOURNAMENTS')
 
+    exit()
     return selection_results
 
 
-# def mating_pool(population, selection_results):
-#     mating_pool_list = []
-#     for i in range(0, len(selection_results)):
-#         index = selection_results[i]
-#         mating_pool_list.append(population[index])
-#
-#     print(mating_pool_list)
-#     exit()
-#     return mating_pool_list
+def weighted_random_choice(choices):
+    max = sum(choices.values())
+    pick = random.uniform(0, max)
+    current = 0
+    for key, value in choices.items():
+        current += value
+        if current > pick:
+            return key
 
 
 def crossover_population(population, elite_size):
@@ -133,38 +153,34 @@ def mutate(individual, mutation_rate):
 
 def display_teams(population):
     for i in population:
-        print("Total score for %s is %s" % (i, i.fitness))
+        print("Total fitness for team %s is %s" % (i, i.fitness))
+    print('*** separator *** ')
+    print(' ')
 
 
 def genetic_algorithm(individuals, elite_size, mutation_rate, generations):
     population = initial_population(individuals)
 
-    # display_teams(population)
+    print('Initial population')
+    display_teams(population)
+    print("Initial best fitness: " + str(best_teams(population)[0].fitness))
 
-    print("Initial fitness: " + str(best_teams(population)[0].fitness))
-
-    progress = []
-    progress.append(best_teams(population)[0].fitness)
-    # print(best_teams(population)[0].fitness)
     for i in range(0, generations):
-        display_teams(population)
         population = next_generation(population, elite_size, mutation_rate)
 
         calculate_fitness(population)
         display_teams(population)
         exit()
         print("fitness: " + str(best_teams(population)[0].fitness))
-        progress.append(best_teams(population)[0].fitness)
 
 
-#     last_n = progress[-15:]
-#     print(last_n.count(last_n[-1]))
-#     # print('[%s]' % ', '.join(map(str, progress[-10:])))
-#
-# print("Final distance: " + str(1 / rankRoutes(pop)[0][1]))
-# bestRouteIndex = rankRoutes(pop)[0][0]
-# bestRoute = pop[bestRouteIndex]
-# return bestRoute
+try:
+    conn = MongoClient()
+    print("Connected successfully!!!")
+except:
+    print("Could not connect to MongoDB")
 
+TOURNAMENT_PLAYERS = 2
+player_model = Player(conn)
 
-genetic_algorithm(individuals=10, elite_size=4, mutation_rate=0.01, generations=5)
+genetic_algorithm(individuals=6, elite_size=2, mutation_rate=0.01, generations=5)
