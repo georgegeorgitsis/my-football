@@ -29,17 +29,22 @@ def best_teams(population):
 
 
 def next_generation(population, elite_size, mutation_rate):
-    selection_result = selection(population, elite_size)
+    # selection_result = tournament_selection(population, elite_size)
 
+    print('START OF ROULETTE SELECTION')
+    selection_results = roulette_selection(population)
+    display_teams(selection_results)
+    print('END OF ROULETTE')
+    exit()
     # matingpool = mating_pool(current_gen, selection_results)
 
-    next_population = crossover_population(selection_result, elite_size)
+    # next_population = crossover_population(selection_result, elite_size)
 
     # population = mutate_population(population, mutation_rate)
     return next_population
 
 
-def selection(population, elite_size):
+def tournament_selection(population, elite_size):
     # sort teams to have the best in the beggining
     print('TOURNAMENT SELECTION FOR:')
     display_teams(population)
@@ -58,7 +63,6 @@ def selection(population, elite_size):
 
     choices = {chromosome: chromosome.fitness for chromosome in population}
     # print(choices)
-    print(weighted_random_choice(choices))
     exit()
     # print('START OF LOCAL TOURNAMENTS')
     # for i in range(0, len(population)):
@@ -85,14 +89,21 @@ def selection(population, elite_size):
     return selection_results
 
 
-def weighted_random_choice(choices):
-    max = sum(choices.values())
-    pick = random.uniform(0, max)
+def roulette_selection(population):
+    selection = []
+    max = sum(c.fitness for c in population)
+    for ind in range(0, len(population)):
+        pick = random.uniform(0, max)
+        selection.append(do_roulette(population, pick))
+    return selection
+
+
+def do_roulette(population, random_pick):
     current = 0
-    for key, value in choices.items():
-        current += value
-        if current > pick:
-            return key
+    for i in population:
+        current += i.fitness
+        if current > random_pick:
+            return i
 
 
 def crossover_population(population, elite_size):
