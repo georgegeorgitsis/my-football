@@ -3,6 +3,7 @@ import random
 
 
 class Player(Base):
+    name = None
 
     def __init__(self, conn):
         super(Player, self).__init__(conn)

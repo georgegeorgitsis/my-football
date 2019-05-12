@@ -4,13 +4,14 @@ from .base import Base
 class Team(Base):
     fitness = None
     players_count = 11
-    players = []
+
     playerModel = None
 
     def __init__(self, conn, player_model):
         super(Team, self).__init__(conn)
         self._collection = self._db.teams
         self.playerModel = player_model
+        self.players = []
 
     def create(self, items):
         print("NOT Creating teams:")
@@ -44,3 +45,6 @@ class Team(Base):
         for k in range(0, self.players_count):
             temp.append(self.playerModel.select_random_player())
         self.players = temp
+
+    def add_player(self, player):
+        self.players.append(player)
