@@ -135,11 +135,12 @@ try:
 except:
     print("Could not connect to MongoDB")
 
-TOURNAMENT_PLAYERS = 2
 player_model = Player(conn)
 
 genetic_algorithm(individuals=100, elite_size=0, mutation_rate=0.2, generations=50)
 
+# TOURNAMENT_PLAYERS = 2
+#
 # def tournament_selection(population, elite_size):
 #     # sort teams to have the best in the beggining
 #     print('TOURNAMENT SELECTION FOR:')
