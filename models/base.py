@@ -14,10 +14,18 @@ class Base(ABC):
     _conn = None
     _db = None
     _collection = None
+    _positions = ['GK', 'LB', 'CB', 'RB', 'LWB', 'RWB', 'DM', 'LM', 'CM', 'RM', 'AM', 'LW', 'SS', 'RW', 'CF']
 
     def __init__(self, conn=None):
         self._conn = conn
         self._db = conn.database
+
+    @staticmethod
+    def display_teams(population):
+        for i in population:
+            print("Total fitness for team %s is %s" % (i, i.fitness))
+        print('*** separator *** ')
+        print(' ')
 
     @staticmethod
     def normalize_value(val, min, max):
@@ -48,8 +56,7 @@ class Base(ABC):
 
     @staticmethod
     def generate_position():
-        positions = ['GK', 'LB', 'CB', 'RB', 'LWB', 'RWB', 'DM', 'LM', 'CM', 'RM', 'AM', 'LW', 'SS', 'RW', 'CF']
-        return random.choices(positions)
+        return random.choices(Base._positions)
 
     @staticmethod
     def generate_name(length=8):

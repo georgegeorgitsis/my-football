@@ -4,7 +4,6 @@ from .base import Base
 class Team(Base):
     fitness = None
     players_count = 11
-
     playerModel = None
 
     def __init__(self, conn, player_model):
@@ -24,15 +23,17 @@ class Team(Base):
 
     def fitness_positions_check(self):
         temp = []
-
+        pos = []
         for i in self.players:
             temp.append(i['position'])
+            pos.append(i['position'])
 
         uniqueness = len(set(temp))
 
         # we need to reverse it, since the more unique the better for positions
         score = 1 - self.normalize_value(uniqueness, 0, 11)
-        # print("Score for {0} is {1}".format(uniqueness, score))
+
+        # print('Team: %s has uniqueness: %s and score: %s' % (str(pos), uniqueness, score))
 
         return score
 

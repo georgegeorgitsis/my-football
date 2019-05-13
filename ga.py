@@ -4,7 +4,6 @@ from pymongo import MongoClient
 from random import randint
 
 import random
-import time
 import numpy as np, operator, pandas as pd
 
 
@@ -31,6 +30,8 @@ def best_teams(population):
 
 def next_generation(population, elite_size, mutation_rate):
     mating_pool = roulette_selection(population, elite_size)
+
+    random.shuffle(mating_pool)
 
     crossovered = crossover_population(mating_pool)
 
@@ -116,23 +117,16 @@ def mutate(individual, mutation_rate):
     return individual
 
 
-def display_teams(population):
-    for i in population:
-        print("Total fitness for team %s is %s" % (i, i.fitness))
-    print('*** separator *** ')
-    print(' ')
-
-
 def genetic_algorithm(individuals, elite_size, mutation_rate, generations):
     population = initial_population(individuals)
 
-    # print('Initial population')
-    # display_teams(population)
     print("Initial best fitness: " + str(best_teams(population)[0].fitness))
 
     for i in range(0, generations):
         population = next_generation(population, elite_size, mutation_rate)
-        print("run number %s has fitness: %s " % (i, str(best_teams(population)[0].fitness)))
+        best_team = best_teams(population)[0]
+        # best_team.print_team_positions()
+        print(" ... Run number %s has fitness: %s " % (i, str(best_team.fitness)))
 
 
 try:
@@ -144,7 +138,7 @@ except:
 TOURNAMENT_PLAYERS = 2
 player_model = Player(conn)
 
-genetic_algorithm(individuals=200, elite_size=0, mutation_rate=0.2, generations=500)
+genetic_algorithm(individuals=100, elite_size=0, mutation_rate=0.2, generations=50)
 
 # def tournament_selection(population, elite_size):
 #     # sort teams to have the best in the beggining
