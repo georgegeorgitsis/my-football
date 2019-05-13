@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from random import randint
 
 import random
+import time
 import numpy as np, operator, pandas as pd
 
 
@@ -31,28 +32,30 @@ def best_teams(population):
 def next_generation(population, elite_size, mutation_rate):
     # selection_result = tournament_selection(population, elite_size)
 
-    selection_results = roulette_selection(population)
-    # display_teams(selection_results)
-    # print('END OF ROULETTE')
+    mating_pool = roulette_selection(population)
+
+    # print('mating pool length is %s' % len(mating_pool))
 
     # matingpool = mating_pool(current_gen, selection_results)
 
-    # next_population = crossover_population(selection_result, elite_size)
+    next_population = crossover_population(mating_pool)
+
+    # print('next population length is %s' % len(next_population))
 
     # population = mutate_population(population, mutation_rate)
-    return selection_results
+    return next_population
 
 
 def roulette_selection(population):
-    selection = []
+    mating_pool = []
 
     for i in range(0, len(population)):
-        selected_parent1 = do_roulette(population)
-        selected_parent2 = do_roulette(population)
-        children = crossover(selected_parent1, selected_parent2)
-        selection.extend(children)
+        selected_parent = do_roulette(population)
+        # selected_parent2 = do_roulette(population)
+        # children = crossover(selected_parent1, selected_parent2)
+        mating_pool.append(selected_parent)
 
-    return selection
+    return mating_pool
 
 
 def do_roulette(population):
@@ -64,6 +67,18 @@ def do_roulette(population):
         current += i.fitness
         if current > random_pick:
             return i
+
+
+def crossover_population(population):
+    next_population = []
+    while population:
+        parent1 = population.pop()
+        parent2 = population.pop()
+
+        children = crossover(parent1, parent2)
+        next_population = next_population + children
+
+    return next_population
 
 
 def crossover(parent_team1, parent_team2):
@@ -184,6 +199,7 @@ def display_teams(population):
 
 
 def genetic_algorithm(individuals, elite_size, mutation_rate, generations):
+    start = time.time()
     population = initial_population(individuals)
 
     # print('Initial population')
@@ -192,8 +208,9 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, generations):
 
     for i in range(0, generations):
         population = next_generation(population, elite_size, mutation_rate)
+        iter = time.time()
 
-        calculate_fitness(population)
+        # print('Time lapsed for iteration %s is %s' % (i, iter - start))
         print("run number %s has fitness: %s " % (i, str(best_teams(population)[0].fitness)))
 
 
@@ -206,4 +223,4 @@ except:
 TOURNAMENT_PLAYERS = 2
 player_model = Player(conn)
 
-genetic_algorithm(individuals=100, elite_size=2, mutation_rate=0.01, generations=5)
+genetic_algorithm(individuals=100, elite_size=2, mutation_rate=0.01, generations=500)
