@@ -31,7 +31,6 @@ def best_teams(population):
 def next_generation(population, elite_size, mutation_rate):
     # selection_result = tournament_selection(population, elite_size)
 
-    # print('START OF ROULETTE SELECTION')
     selection_results = roulette_selection(population)
     # display_teams(selection_results)
     # print('END OF ROULETTE')
@@ -47,13 +46,9 @@ def next_generation(population, elite_size, mutation_rate):
 def roulette_selection(population):
     selection = []
 
-    while len(population) != 0:
+    for i in range(0, len(population)):
         selected_parent1 = do_roulette(population)
-        population.remove(selected_parent1)
-
         selected_parent2 = do_roulette(population)
-        population.remove(selected_parent2)
-
         children = crossover(selected_parent1, selected_parent2)
         selection.extend(children)
 
@@ -199,7 +194,7 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, generations):
         population = next_generation(population, elite_size, mutation_rate)
 
         calculate_fitness(population)
-        print("fitness: " + str(best_teams(population)[0].fitness))
+        print("run number %s has fitness: %s " % (i, str(best_teams(population)[0].fitness)))
 
 
 try:
@@ -211,4 +206,4 @@ except:
 TOURNAMENT_PLAYERS = 2
 player_model = Player(conn)
 
-genetic_algorithm(individuals=30, elite_size=2, mutation_rate=0.01, generations=20)
+genetic_algorithm(individuals=100, elite_size=2, mutation_rate=0.01, generations=5)
