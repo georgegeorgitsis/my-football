@@ -1,4 +1,5 @@
 from .base import Base
+from collections import Counter
 
 
 class Team(Base):
@@ -6,11 +7,18 @@ class Team(Base):
     players_count = 11
     playerModel = None
 
-    def __init__(self, conn, player_model):
+    tactics = [
+        ['GK', 'LB', 'CB', 'CB', 'RB', 'LM', 'CM', 'CM', 'RM', 'ST', 'ST'],  # 4-4-2
+        ['GK', 'LB', 'CB', 'CB', 'RB', 'DM', 'CM', 'CM', 'LW', 'RW', 'ST'],  # 4-3-3
+        ['GK', 'CB', 'CB', 'CB', 'RWB', 'LWB', 'CM', 'CM', 'CM', 'ST', 'ST'],  # 5-3-2
+    ]
+
+    def __init__(self, conn, player_model, tactic):
         super(Team, self).__init__(conn)
         self._collection = self._db.teams
         self.playerModel = player_model
         self.players = []
+        self.tactic = tactic
 
     def create(self, items):
         print("NOT Creating teams:")
@@ -21,25 +29,43 @@ class Team(Base):
         for record in cursor:
             print(record)
 
-    def fitness_positions_check(self):
+    def fitness_positions_uniq_check(self):
         temp = []
-        pos = []
         for i in self.players:
             temp.append(i['position'])
-            pos.append(i['position'])
 
         uniqueness = len(set(temp))
 
-        # we need to reverse it, since the more unique the better for positions
-        score = 1 - self.normalize_value(uniqueness, 0, 11)
+        score = self.normalize_value(uniqueness, 0, 11)
 
-        # print('Team: %s has uniqueness: %s and score: %s' % (str(pos), uniqueness, score))
+        result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
+
+        print('Team: %s has uniqueness: %s and score: %s' % (str(result), uniqueness, score))
+
+        return score
+
+    def fitness_against_tactic(self):
+        temp = []
+        for i in self.players:
+            temp.append(i['position'])
+
+        diff = sum((Counter(self.tactic) - Counter(temp)).values())
+        score = 11 - diff
 
         return score
 
     def calculate_fitness(self):
-        self.fitness = self.fitness_positions_check()
+        self.fitness = self.fitness_against_tactic()
         return self.fitness
+
+    def print_team_positions(self, tactic):
+        temp = []
+        for i in self.players:
+            temp.append(i['position'])
+
+        result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
+
+        return result
 
     def create_random_team(self):
         temp = []
