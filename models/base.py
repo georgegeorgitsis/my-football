@@ -14,7 +14,7 @@ class Base(ABC):
     _conn = None
     _db = None
     _collection = None
-    _positions = ['GK', 'LB', 'CB', 'RB', 'LWB', 'RWB', 'DM', 'LM', 'CM', 'RM', 'AM', 'LW', 'SS', 'RW', 'CF']
+    _positions = ['GK', 'LB', 'CB', 'RB', 'LWB', 'RWB', 'LM', 'DM', 'CM', 'RM', 'AM', 'LW', 'RW', 'CF', 'ST']
 
     def __init__(self, conn=None):
         self._conn = conn
