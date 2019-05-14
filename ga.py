@@ -2,10 +2,8 @@ from models.player import Player
 from models.team import Team
 from pymongo import MongoClient
 from random import randint
-from collections import Counter
 
 import random
-import numpy as np, operator, pandas as pd
 
 
 def initial_population(individuals, tactic):
