@@ -40,7 +40,4 @@ class Player(Base):
             {"$sample": {"size": number}}
         ])
 
-        if number == 1:
-            return result.next()
-        else:
-            return result
+        return result.next() if number == 1 else result
