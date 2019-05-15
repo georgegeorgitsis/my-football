@@ -58,7 +58,7 @@ class Team(Base):
         self.fitness = self.fitness_against_tactic()
         return self.fitness
 
-    def print_team_positions(self, tactic):
+    def get_team_positions(self):
         temp = []
         for i in self.players:
             temp.append(i['position'])

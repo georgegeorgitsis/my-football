@@ -119,11 +119,12 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, generations, tacti
     print("Initial best fitness: " + str(best_teams(population)[0].fitness))
 
     for i in range(0, generations):
-        # best_team.print_team_positions()
         population = next_generation(population, elite_size, mutation_rate, tactic)
         best_team = best_teams(population)[0]
         print(" ... Generation number %s, best team: %s has fitness: %s " % (
-            i, best_team.print_team_positions(tactic), str(best_team.fitness)))
+            i, best_team.get_team_positions(), str(best_team.fitness)))
+
+    print(best_team.get_team_positions())
 
 
 try:
@@ -134,9 +135,9 @@ except:
 
 player_model = Player(conn)
 
-tactic = random.sample(Team.tactics, 1)[0]
+selected_tactic = random.sample(Team.tactics, 1)[0]
 
-genetic_algorithm(individuals=250, elite_size=10, mutation_rate=0.05, generations=500, tactic=tactic)
+genetic_algorithm(individuals=250, elite_size=10, mutation_rate=0.05, generations=100, tactic=selected_tactic)
 
 # TOURNAMENT_PLAYERS = 2
 #
