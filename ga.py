@@ -9,9 +9,13 @@ import random
 def initial_population(individuals, tactic):
     population = []
 
+    number_of_random_players = individuals * Team.players_count
+    random_players = player_model.select_random_players(number_of_random_players)
+
     for i in range(0, individuals):
         team = Team(conn, player_model, tactic)
-        team.create_random_team()
+        for k in range(0, Team.players_count):
+            team.add_player(random_players.next())
         team.calculate_fitness()
         population.append(team)
 
@@ -29,7 +33,7 @@ def next_generation(population, elite_size, mutation_rate, tactic):
 
     crossovered = crossover_population(mating_pool, tactic)
 
-    population = mutate_population(crossovered, mutation_rate, tactic)
+    population = mutate_population(crossovered, mutation_rate)
 
     return population
 
@@ -93,20 +97,20 @@ def crossover(parent_team1, parent_team2, tactic):
     return [child_team1, child_team2]
 
 
-def mutate_population(population, mutation_rate, tactic):
+def mutate_population(population, mutation_rate):
     mutated_population = []
 
     for ind in range(0, len(population)):
-        mutated = mutate(population[ind], mutation_rate, tactic)
+        mutated = mutate(population[ind], mutation_rate)
         mutated_population.append(mutated)
     return mutated_population
 
 
-def mutate(individual, mutation_rate, tactic):
+def mutate(individual, mutation_rate):
     if random.random() < mutation_rate:
         random_team_player = randint(0, Team.players_count - 1)
         del individual.players[random_team_player]
-        individual.players.append(player_model.select_random_player())
+        individual.players.append(player_model.select_random_players())
         individual.calculate_fitness()
 
     return individual

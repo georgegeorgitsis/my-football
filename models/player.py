@@ -1,5 +1,4 @@
 from .base import Base
-import random
 
 
 class Player(Base):
@@ -36,6 +35,12 @@ class Player(Base):
     def select_players(self, items):
         return self._collection.find().limit(items)
 
-    def select_random_player(self):
-        count = self._collection.count()
-        return dict(self._collection.find()[random.randrange(count)])
+    def select_random_players(self, number=1):
+        result = self._collection.aggregate([
+            {"$sample": {"size": number}}
+        ])
+
+        if number == 1:
+            return result.next()
+        else:
+            return result

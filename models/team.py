@@ -35,13 +35,9 @@ class Team(Base):
             temp.append(i['position'])
 
         uniqueness = len(set(temp))
-
         score = self.normalize_value(uniqueness, 0, 11)
-
         result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
-
         print('Team: %s has uniqueness: %s and score: %s' % (str(result), uniqueness, score))
-
         return score
 
     def fitness_against_tactic(self):
@@ -66,12 +62,6 @@ class Team(Base):
         result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
 
         return result
-
-    def create_random_team(self):
-        temp = []
-        for k in range(0, self.players_count):
-            temp.append(self.playerModel.select_random_player())
-        self.players = temp
 
     def add_player(self, player):
         self.players.append(player)
