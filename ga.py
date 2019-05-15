@@ -119,8 +119,9 @@ def mutate(individual, mutation_rate):
 def genetic_algorithm(individuals, elite_size, mutation_rate, generations, tactic):
     print('Checking against: %s' % str(tactic))
     population = initial_population(individuals, tactic)
-
-    print("Initial best fitness: " + str(best_teams(population)[0].fitness))
+    best_team = best_teams(population)[0]
+    print(" ... Random generation best team: %s has fitness: %s " % (
+        best_team.get_team_positions(), str(best_team.fitness)))
 
     for i in range(0, generations):
         population = next_generation(population, elite_size, mutation_rate, tactic)
@@ -141,7 +142,7 @@ player_model = Player(conn)
 
 selected_tactic = random.sample(Team.tactics, 1)[0]
 
-genetic_algorithm(individuals=250, elite_size=10, mutation_rate=0.05, generations=100, tactic=selected_tactic)
+genetic_algorithm(individuals=150, elite_size=4, mutation_rate=0.05, generations=100, tactic=selected_tactic)
 
 # TOURNAMENT_PLAYERS = 2
 #
