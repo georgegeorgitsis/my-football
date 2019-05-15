@@ -1,5 +1,6 @@
 from .base import Base
 from random import randint
+import random
 
 
 class Player(Base):
@@ -19,7 +20,8 @@ class Player(Base):
                 "surname": self.generate_name(8),
                 "age": self.generate_age(),
                 "position": self.generate_position()[0],
-                "skillset": self.generate_random_skill()
+                "skillset": self.generate_random_skill(),
+                "leader": self.generate_leader()
             }
             self._collection.insert_one(temp)
             self.print_dot(k)
@@ -46,3 +48,6 @@ class Player(Base):
 
     def generate_random_skill(self):
         return randint(1, self.max_skillset)
+
+    def generate_leader(self):
+        return 1 if random.random() > 0.1 else 0
