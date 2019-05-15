@@ -130,6 +130,7 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, generations, tacti
             i, best_team.get_team_positions(), str(best_team.fitness)))
 
     print(best_team.get_team_positions())
+    best_team.display_players()
 
 
 try:
@@ -142,7 +143,7 @@ player_model = Player(conn)
 
 selected_tactic = random.sample(Team.tactics, 1)[0]
 
-genetic_algorithm(individuals=150, elite_size=4, mutation_rate=0.05, generations=100, tactic=selected_tactic)
+genetic_algorithm(individuals=300, elite_size=4, mutation_rate=0.05, generations=1000, tactic=selected_tactic)
 
 # TOURNAMENT_PLAYERS = 2
 #

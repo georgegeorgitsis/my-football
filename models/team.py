@@ -29,29 +29,36 @@ class Team(Base):
         for record in cursor:
             print(record)
 
-    def fitness_positions_uniq_check(self):
-        temp = []
-        for i in self.players:
-            temp.append(i['position'])
-
-        uniqueness = len(set(temp))
-        score = self.normalize_value(uniqueness, 0, 11)
-        result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
-        print('Team: %s has uniqueness: %s and score: %s' % (str(result), uniqueness, score))
-        return score
+    # def fitness_positions_uniq_check(self):
+    #     temp = []
+    #     for i in self.players:
+    #         temp.append(i['position'])
+    #
+    #     uniqueness = len(set(temp))
+    #     score = self.normalize_value(uniqueness, 0, 11)
+    #     result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
+    #     print('Team: %s has uniqueness: %s and score: %s' % (str(result), uniqueness, score))
+    #     return score
 
     def fitness_against_tactic(self):
-        temp = []
+        temp_positions = []
         for i in self.players:
-            temp.append(i['position'])
+            temp_positions.append(i['position'])
 
-        diff = sum((Counter(self.tactic) - Counter(temp)).values())
-        score = 11 - diff
+        diff = sum((Counter(self.tactic) - Counter(temp_positions)).values())
+        tactic_score = Team.players_count - diff
+        return self.normalize_value(tactic_score, 0, Team.players_count)
 
-        return score
+    def fitness_against_skillset(self):
+        skillset_score = 0
+
+        for i in self.players:
+            skillset_score += i['skillset']
+
+        return self.normalize_value(skillset_score, 0, Team.players_count * self.playerModel.max_skillset)
 
     def calculate_fitness(self):
-        self.fitness = self.fitness_against_tactic()
+        self.fitness = self.fitness_against_tactic() + self.fitness_against_skillset()
         return self.fitness
 
     def get_team_positions(self):
@@ -65,3 +72,7 @@ class Team(Base):
 
     def add_player(self, player):
         self.players.append(player)
+
+    def display_players(self):
+        for i in self.players:
+            print(i)

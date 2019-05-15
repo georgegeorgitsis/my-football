@@ -74,7 +74,3 @@ class Base(ABC):
     @staticmethod
     def generate_age():
         return randint(15, 40)
-
-    @staticmethod
-    def generate_random_int():
-        return randint(1, 10)
