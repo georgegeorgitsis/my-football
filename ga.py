@@ -116,7 +116,7 @@ def mutate(individual, mutation_rate):
     return individual
 
 
-def genetic_algorithm(individuals, elite_size, mutation_rate, generations, tactic):
+def genetic_algorithm(individuals, elite_size, mutation_rate, tactic):
     print('Checking against: %s' % str(tactic))
     population = initial_population(individuals, tactic)
     best_team = best_teams(population)[0]
@@ -159,7 +159,7 @@ player_model = Player(conn)
 
 selected_tactic = random.sample(Team.tactics, 1)[0]
 
-genetic_algorithm(individuals=300, elite_size=6, mutation_rate=0.05, generations=300, tactic=selected_tactic)
+genetic_algorithm(individuals=300, elite_size=6, mutation_rate=0.05, tactic=selected_tactic)
 
 # TOURNAMENT_PLAYERS = 2
 #
