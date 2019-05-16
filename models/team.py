@@ -70,6 +70,8 @@ class Team(Base):
 
     def calculate_fitness(self):
         self.fitness = self.fitness_against_tactic() + self.fitness_against_skillset() + self.fitness_against_leadership()
+
+        self.fitness = self.fitness
         return self.fitness
 
     def get_team_positions(self):

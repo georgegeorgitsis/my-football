@@ -98,29 +98,27 @@ def crossover(parent_team1, parent_team2, tactic):
 
 
 def mutate_population(population, mutation_rate):
-    mutated_population = []
-
-    for ind in range(0, len(population)):
-        mutated = mutate(population[ind], mutation_rate)
-        mutated_population.append(mutated)
-    return mutated_population
-
-
-def mutate(individual, mutation_rate):
     if random.random() < mutation_rate:
-        random_team_player = randint(0, Team.players_count - 1)
-        del individual.players[random_team_player]
-        individual.players.append(player_model.select_random_players())
-        individual.calculate_fitness()
+        random_index = random.randint(0, len(population) - 1)
+        population[random_index] = mutate(population[random_index])
+    return population
+
+
+def mutate(individual):
+    random_team_player = randint(0, Team.players_count - 1)
+    del individual.players[random_team_player]
+    individual.players.append(player_model.select_random_players())
+    individual.calculate_fitness()
 
     return individual
 
 
 def genetic_algorithm(individuals, elite_size, mutation_rate, tactic):
+    progress = []
+
     print('Checking against: %s' % str(tactic))
     population = initial_population(individuals, tactic)
     best_team = best_teams(population)[0]
-    progress = []
     progress.append(best_team.fitness)
     print(" ... Random generation best team: %s has fitness: %s " % (
         best_team.get_team_positions(), str(best_team.fitness)))
@@ -134,19 +132,20 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, tactic):
             i, best_team.get_team_positions(), str(best_team.fitness)))
         progress.append(best_team.fitness)
         i += 1
-        if len(set(progress[-30:])) == 1:
+        if len(set(progress[-50:])) == 1:
             stabilised = True
 
     print(' ')
     print(" Final result: best team: %s has fitness: %s " % (
         best_team.get_team_positions(), str(best_team.fitness)))
     print(best_team.get_team_positions())
+    print("Best team of all generations had fitness: %s" % max(progress))
     best_team.display_players()
 
     plt.plot(progress)
     plt.ylabel('Fitness')
     plt.xlabel('Generations')
-    plt.show()
+    # plt.show()
 
 
 try:
@@ -159,7 +158,7 @@ player_model = Player(conn)
 
 selected_tactic = random.sample(Team.tactics, 1)[0]
 
-genetic_algorithm(individuals=300, elite_size=6, mutation_rate=0.05, tactic=selected_tactic)
+genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1, tactic=selected_tactic)
 
 # TOURNAMENT_PLAYERS = 2
 #
