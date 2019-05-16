@@ -125,12 +125,17 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, generations, tacti
     print(" ... Random generation best team: %s has fitness: %s " % (
         best_team.get_team_positions(), str(best_team.fitness)))
 
-    for i in range(0, generations):
+    stabilised = False
+    i = 0
+    while not stabilised:
         population = next_generation(population, elite_size, mutation_rate, tactic)
         best_team = best_teams(population)[0]
         print(" ... Generation number %s, best team: %s has fitness: %s " % (
             i, best_team.get_team_positions(), str(best_team.fitness)))
         progress.append(best_team.fitness)
+        i += 1
+        if len(set(progress[-30:])) == 1:
+            stabilised = True
 
     print(' ')
     print(" Final result: best team: %s has fitness: %s " % (
@@ -154,7 +159,7 @@ player_model = Player(conn)
 
 selected_tactic = random.sample(Team.tactics, 1)[0]
 
-genetic_algorithm(individuals=200, elite_size=6, mutation_rate=0.05, generations=300, tactic=selected_tactic)
+genetic_algorithm(individuals=300, elite_size=6, mutation_rate=0.05, generations=300, tactic=selected_tactic)
 
 # TOURNAMENT_PLAYERS = 2
 #
