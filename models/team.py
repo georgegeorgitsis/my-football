@@ -10,7 +10,7 @@ class Team(Base):
     tactics = [
         ['GK', 'LB', 'CB', 'CB', 'RB', 'LM', 'CM', 'CM', 'RM', 'ST', 'ST'],  # 4-4-2
         ['GK', 'LB', 'CB', 'CB', 'RB', 'DM', 'CM', 'CM', 'LW', 'RW', 'ST'],  # 4-3-3
-        ['GK', 'CB', 'CB', 'CB', 'RWB', 'LWB', 'CM', 'CM', 'CM', 'ST', 'ST'],  # 5-3-2
+        ['GK', 'LWB', 'CB', 'CB', 'RWB', 'CB', 'CM', 'CM', 'CM', 'ST', 'ST'],  # 5-3-2
     ]
 
     def __init__(self, conn, player_model, tactic):
@@ -63,10 +63,10 @@ class Team(Base):
         for i in self.players:
             leader_sum += i['leader']
 
-        leadership_score = Team.players_count - leader_sum
+        leadership_score = 4 if leader_sum == 0 else Team.players_count - leader_sum
 
         # we need at least one leader in a team
-        return self.normalize_value(leadership_score, 0, Team.players_count + 1)
+        return self.normalize_value(leadership_score, 0, Team.players_count)
 
     def calculate_fitness(self):
         self.fitness = self.fitness_against_tactic() + self.fitness_against_skillset() + self.fitness_against_leadership()

@@ -2,7 +2,7 @@ from models.player import Player
 from models.team import Team
 from pymongo import MongoClient
 from random import randint
-
+import matplotlib.pyplot as plt
 import random
 
 
@@ -120,6 +120,8 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, generations, tacti
     print('Checking against: %s' % str(tactic))
     population = initial_population(individuals, tactic)
     best_team = best_teams(population)[0]
+    progress = []
+    progress.append(best_team.fitness)
     print(" ... Random generation best team: %s has fitness: %s " % (
         best_team.get_team_positions(), str(best_team.fitness)))
 
@@ -128,9 +130,18 @@ def genetic_algorithm(individuals, elite_size, mutation_rate, generations, tacti
         best_team = best_teams(population)[0]
         print(" ... Generation number %s, best team: %s has fitness: %s " % (
             i, best_team.get_team_positions(), str(best_team.fitness)))
+        progress.append(best_team.fitness)
 
+    print(' ')
+    print(" Final result: best team: %s has fitness: %s " % (
+        best_team.get_team_positions(), str(best_team.fitness)))
     print(best_team.get_team_positions())
     best_team.display_players()
+
+    plt.plot(progress)
+    plt.ylabel('Fitness')
+    plt.xlabel('Generations')
+    plt.show()
 
 
 try:
@@ -143,7 +154,7 @@ player_model = Player(conn)
 
 selected_tactic = random.sample(Team.tactics, 1)[0]
 
-genetic_algorithm(individuals=300, elite_size=4, mutation_rate=0.05, generations=1000, tactic=selected_tactic)
+genetic_algorithm(individuals=200, elite_size=6, mutation_rate=0.05, generations=300, tactic=selected_tactic)
 
 # TOURNAMENT_PLAYERS = 2
 #
