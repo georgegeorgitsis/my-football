@@ -2,18 +2,12 @@ from ga import Ga
 from models.team import Team
 import inquirer
 
-formation_shortcuts = []
-for i in Team.formations:
-    formation_shortcuts.append(i)
-
-questions = [
-    inquirer.List('formation', message="Choose formation", choices=formation_shortcuts, ),
-]
-answers = inquirer.prompt(questions)
+question_formation = [inquirer.List('formation', message="Choose formation", choices=Team.formations.keys(), ), ]
+answers = inquirer.prompt(question_formation)
 
 try:
-    ga = Ga(answers["formation"])
-    ga.run()
+    ga = Ga()
+    ga.run(answers["formation"])
 except:
     print("Could not connect to MongoDB")
     exit(0)
