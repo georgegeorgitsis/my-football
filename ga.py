@@ -7,10 +7,11 @@ import random
 
 
 class Ga:
+    formation = None
+    termination_after = -50
 
-    def __init__(self, selected_formation_index):
+    def __init__(self):
         self.conn = MongoClient()
-        self.formation = Team.formations[selected_formation_index]
         self.player_model = Player(self.conn)
 
     # create initial Teams with random Players
@@ -19,7 +20,6 @@ class Ga:
 
         number_of_random_players = individuals * Team.players_count
 
-        # get batch of players from DB
         random_players = self.player_model.select_random_players(number_of_random_players)
 
         for i in range(0, individuals):
@@ -31,7 +31,6 @@ class Ga:
 
         return population
 
-    # create next generation use roulette selection, elitism, crossover and mutation
     def next_generation(self, population, elite_size, mutation_rate):
         mating_pool = self.roulette_selection(population, elite_size)
 
@@ -50,8 +49,7 @@ class Ga:
         del temp[:elite_size]
 
         for i in range(0, len(population) - elite_size):
-            selected_parent = self.do_roulette(temp)
-            mating_pool.append(selected_parent)
+            mating_pool.append(self.do_roulette(temp))
 
         return mating_pool
 
@@ -82,7 +80,7 @@ class Ga:
         child_team1 = Team(self.conn, Player(self.conn), self.formation)
         child_team2 = Team(self.conn, Player(self.conn), self.formation)
 
-        for i in range(0, 11):
+        for i in range(0, Team.players_count):
             if randint(0, 1) == 1:
                 random_player1 = temp_parent_1.players[i]
                 random_player2 = temp_parent_2.players[i]
@@ -131,7 +129,7 @@ class Ga:
                 i, best_team.get_team_positions(), str(best_team.fitness)))
             progress.append(best_team.fitness)
             i += 1
-            if len(set(progress[-50:])) == 1:
+            if len(set(progress[self.termination_after:])) == 1:
                 stabilised = True
 
         print(' ')
@@ -141,12 +139,13 @@ class Ga:
         print("Best team of all generations had fitness: %s" % max(progress))
         best_team.display_players()
 
-        plt.plot(progress)
-        plt.ylabel('Fitness')
-        plt.xlabel('Generations')
+        # plt.plot(progress)
+        # plt.ylabel('Fitness')
+        # plt.xlabel('Generations')
         # plt.show()
 
-    def run(self):
+    def run(self, formation_index):
+        self.formation = Team.formations[formation_index]
         self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
 
     @staticmethod
