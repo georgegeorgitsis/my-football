@@ -6,8 +6,8 @@ question_formation = [inquirer.List('formation', message="Choose formation", cho
 answers = inquirer.prompt(question_formation)
 
 try:
-    ga = Ga()
-    ga.run(answers["formation"])
+    ga = Ga(answers["formation"])
+    ga.run()
 except:
     print("Could not connect to MongoDB")
     exit(0)

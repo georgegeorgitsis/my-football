@@ -10,8 +10,10 @@ class Ga:
     formation = None
     termination_after = -50
 
-    def __init__(self):
+    def __init__(self, formation_index):
         self.conn = MongoClient()
+        self.formation_index = formation_index
+        self.formation = Team.formations[formation_index]
         self.player_model = Player(self.conn)
 
     # create initial Teams with random Players
@@ -113,7 +115,7 @@ class Ga:
     def genetic_algorithm(self, individuals, elite_size, mutation_rate):
         progress = []
 
-        print('Checking against: %s' % str(self.formation))
+        print('Checking against: %s %s' % (self.formation_index, str(self.formation)))
         population = self.initial_population(individuals)
         best_team = self.best_teams(population)[0]
         progress.append(best_team.fitness)
@@ -133,20 +135,25 @@ class Ga:
                 stabilised = True
 
         print(' ')
-        print(" Final result: best team: %s has fitness: %s " % (
-            best_team.get_team_positions(), str(best_team.fitness)))
-        print(best_team.get_team_positions())
-        print("Best team of all generations had fitness: %s" % max(progress))
+        print('Result for formation: %s' % self.formation)
+        print("-Best team formation: %s has fitness: %s " % (best_team.get_team_positions(), str(best_team.fitness)))
+        print(' ')
+        print('Players:')
+
+        res = sorted(best_team.display_players(), key=lambda item: self.formation)
+
+        print('Sorted res %s' % res)
         best_team.display_players()
+        print(' ')
+        print("Best team of all generations had fitness: %s" % max(progress))
 
         # plt.plot(progress)
         # plt.ylabel('Fitness')
         # plt.xlabel('Generations')
         # plt.show()
 
-    def run(self, formation_index):
-        self.formation = Team.formations[formation_index]
-        self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
+    def run(self):
+        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
 
     @staticmethod
     def best_teams(population):

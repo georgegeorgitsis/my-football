@@ -74,9 +74,9 @@ class Team(Base):
         for i in self.players:
             leader_sum += i['leader']
 
+        # we need at least one leader in a team
         leadership_score = 4 if leader_sum == 0 else Team.players_count - leader_sum
 
-        # we need at least one leader in a team
         return self.normalize_value(leadership_score, 0, Team.players_count)
 
     def calculate_fitness(self):
