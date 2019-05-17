@@ -13,10 +13,13 @@ class Ga:
         self.formation = Team.formations[selected_formation_index]
         self.player_model = Player(self.conn)
 
+    # create initial Teams with random Players
     def initial_population(self, individuals):
         population = []
 
         number_of_random_players = individuals * Team.players_count
+
+        # get batch of players from DB
         random_players = self.player_model.select_random_players(number_of_random_players)
 
         for i in range(0, individuals):
@@ -28,10 +31,7 @@ class Ga:
 
         return population
 
-    @staticmethod
-    def best_teams(population):
-        return sorted(population, key=lambda team: team.fitness, reverse=True)
-
+    # create next generation use roulette selection, elitism, crossover and mutation
     def next_generation(self, population, elite_size, mutation_rate):
         mating_pool = self.roulette_selection(population, elite_size)
 
@@ -149,72 +149,6 @@ class Ga:
     def run(self):
         self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
 
-# TOURNAMENT_PLAYERS = 2
-#
-# def tournament_selection(population, elite_size):
-#     # sort teams to have the best in the beggining
-#     print('TOURNAMENT SELECTION FOR:')
-#     display_teams(population)
-#     print('SORT OF POPULATION FOR ELITISM:')
-#     population = best_teams(population)
-#     display_teams(population)
-#
-#     selection_results = []
-#
-#     for i in range(0, elite_size):
-#         selection_results.append(population[0])
-#         del population[0]
-#     print('START OF ELITISM ')
-#     display_teams(selection_results)
-#     print('END OF ELITISM')
-#
-#     choices = {chromosome: chromosome.fitness for chromosome in population}
-#     print(choices)
-#     exit()
-#     print('START OF LOCAL TOURNAMENTS')
-#     for i in range(0, len(population)):
-#         tournament = []
-#         print('TOURNAMENT ROUND %s' % i)
-#         print('SELECTING INDIVIDUALS FOR TOURNAMENT')
-#         # for k in range(0, TOURNAMENT_PLAYERS):
-#         #     tournament.append(random.choice(population))
-#         tournament = random.sample(population, TOURNAMENT_PLAYERS)
-#
-#         print('selected individuals:')
-#         display_teams(tournament)
-#         winner = best_teams(tournament)[0]
-#         print('winner is %s' % winner)
-#         selection_results.append(winner)
-#         print('SELECTION RESULTS WITH WINNER:')
-#         display_teams(selection_results)
-#
-#     print('RESULTS OF TOURNAMENT')
-#     display_teams(selection_results)
-#     print('END OF TOURNAMENTS')
-#
-#     exit()
-#     return selection_results
-# def crossover_population(population, elite_size):
-#     next_population = []
-#     length = len(population) - elite_size
-#
-#     pass the elitism individuals to next generation no matter what. Those individuals will
-#     be the first on the list
-#     for i in range(0, elite_size):
-#         next_population.append(population[i])
-#
-#     remove them from pool, we do want to crossover with them any more
-#     del population[:elite_size]
-#
-#     print(length)
-#
-#     for i in range(0, len(population), 2):
-#         parent1 = population[i]
-#         parent2 = population[i + 1]
-#
-#         child_team = crossover(parent1, parent2)
-#         next_population.append(child_team)
-#         child_team = crossover(parent1, parent2)
-#         next_population.append(child_team)
-#
-#     return next_population
+    @staticmethod
+    def best_teams(population):
+        return sorted(population, key=lambda team: team.fitness, reverse=True)

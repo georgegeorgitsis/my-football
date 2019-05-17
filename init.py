@@ -7,10 +7,7 @@ for i in Team.formations:
     formation_shortcuts.append(i)
 
 questions = [
-    inquirer.List('formation',
-                  message="Choose prefered formation",
-                  choices=formation_shortcuts,
-                  ),
+    inquirer.List('formation', message="Choose formation", choices=formation_shortcuts, ),
 ]
 answers = inquirer.prompt(questions)
 
