@@ -4,7 +4,7 @@ import inquirer
 
 formation_shortcuts = []
 for i in Team.formations:
-    formation_shortcuts.append(i[0])
+    formation_shortcuts.append(i)
 
 questions = [
     inquirer.List('formation',
@@ -13,7 +13,10 @@ questions = [
                   ),
 ]
 answers = inquirer.prompt(questions)
-form = answers["formation"]
 
-ga = Ga(form)
-ga.run()
+try:
+    ga = Ga(answers["formation"])
+    ga.run()
+except:
+    print("Could not connect to MongoDB")
+    exit(0)

@@ -9,21 +9,10 @@ import random
 class Ga:
 
     def __init__(self, selected_formation_index):
-        try:
-            self.conn = MongoClient()
-            print("Connected successfully!!!")
-        except:
-            print("Could not connect to MongoDB")
-            exit(0)
 
+        self.conn = MongoClient()
         self.selected_formation_index = selected_formation_index
-
-        # find a better way to search in formations
-        for i in Team.formations:
-            if i[0] == selected_formation_index:
-                self.formation = i[1]
-                break
-
+        self.formation = Team.formations[selected_formation_index]
         self.player_model = Player(self.conn)
 
     def initial_population(self, individuals):
