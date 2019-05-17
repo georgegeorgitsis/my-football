@@ -6,159 +6,161 @@ import matplotlib.pyplot as plt
 import random
 
 
-def initial_population(individuals, tactic):
-    population = []
+class Ga:
 
-    number_of_random_players = individuals * Team.players_count
-    random_players = player_model.select_random_players(number_of_random_players)
+    def __init__(self, selected_formation_index):
+        try:
+            self.conn = MongoClient()
+            print("Connected successfully!!!")
+        except:
+            print("Could not connect to MongoDB")
+            exit(0)
 
-    for i in range(0, individuals):
-        team = Team(conn, player_model, tactic)
-        for k in range(0, Team.players_count):
-            team.add_player(random_players.next())
-        team.calculate_fitness()
-        population.append(team)
+        self.selected_formation_index = selected_formation_index
 
-    return population
+        # find a better way to search in formations
+        for i in Team.formations:
+            if i[0] == selected_formation_index:
+                self.formation = i[1]
+                break
 
+        self.player_model = Player(self.conn)
 
-def best_teams(population):
-    return sorted(population, key=lambda team: team.fitness, reverse=True)
+    def initial_population(self, individuals):
+        population = []
 
+        number_of_random_players = individuals * Team.players_count
+        random_players = self.player_model.select_random_players(number_of_random_players)
 
-def next_generation(population, elite_size, mutation_rate, tactic):
-    mating_pool = roulette_selection(population, elite_size)
+        for i in range(0, individuals):
+            team = Team(self.conn, self.player_model, self.formation)
+            for k in range(0, Team.players_count):
+                team.add_player(random_players.next())
+            team.calculate_fitness()
+            population.append(team)
 
-    random.shuffle(mating_pool)
+        return population
 
-    crossovered = crossover_population(mating_pool, tactic)
+    @staticmethod
+    def best_teams(population):
+        return sorted(population, key=lambda team: team.fitness, reverse=True)
 
-    population = mutate_population(crossovered, mutation_rate)
+    def next_generation(self, population, elite_size, mutation_rate):
+        mating_pool = self.roulette_selection(population, elite_size)
 
-    return population
+        random.shuffle(mating_pool)
 
+        crossovered = self.crossover_population(mating_pool)
 
-def roulette_selection(population, elite_size):
-    temp = population
-    population = best_teams(population)
-    mating_pool = population[:elite_size]
-    del temp[:elite_size]
+        population = self.mutate_population(crossovered, mutation_rate)
 
-    for i in range(0, len(population) - elite_size):
-        selected_parent = do_roulette(temp)
-        mating_pool.append(selected_parent)
+        return population
 
-    return mating_pool
+    def roulette_selection(self, population, elite_size):
+        temp = population
+        population = self.best_teams(population)
+        mating_pool = population[:elite_size]
+        del temp[:elite_size]
 
+        for i in range(0, len(population) - elite_size):
+            selected_parent = self.do_roulette(temp)
+            mating_pool.append(selected_parent)
 
-def do_roulette(population):
-    max_fitness = sum(c.fitness for c in population)
-    random_pick = random.uniform(0, max_fitness)
+        return mating_pool
 
-    current = 0
-    for i in population:
-        current += i.fitness
-        if current > random_pick:
-            return i
+    def do_roulette(self, population):
+        max_fitness = sum(c.fitness for c in population)
+        random_pick = random.uniform(0, max_fitness)
 
+        current = 0
+        for i in population:
+            current += i.fitness
+            if current > random_pick:
+                return i
 
-def crossover_population(population, tactic):
-    next_population = []
-    while population:
-        parent1 = population.pop()
-        parent2 = population.pop()
+    def crossover_population(self, population):
+        next_population = []
+        while population:
+            parent1 = population.pop()
+            parent2 = population.pop()
 
-        children = crossover(parent1, parent2, tactic)
-        next_population = next_population + children
+            children = self.crossover(parent1, parent2)
+            next_population = next_population + children
 
-    return next_population
+        return next_population
 
+    def crossover(self, parent_team1, parent_team2):
+        temp_parent_1 = parent_team1
+        temp_parent_2 = parent_team2
+        child_team1 = Team(self.conn, Player(self.conn), self.formation)
+        child_team2 = Team(self.conn, Player(self.conn), self.formation)
 
-def crossover(parent_team1, parent_team2, tactic):
-    temp_parent_1 = parent_team1
-    temp_parent_2 = parent_team2
-    child_team1 = Team(conn, Player(conn), tactic)
-    child_team2 = Team(conn, Player(conn), tactic)
+        for i in range(0, 11):
+            if randint(0, 1) == 1:
+                random_player1 = temp_parent_1.players[i]
+                random_player2 = temp_parent_2.players[i]
+            else:
+                random_player1 = temp_parent_2.players[i]
+                random_player2 = temp_parent_1.players[i]
 
-    for i in range(0, 11):
-        if randint(0, 1) == 1:
-            random_player1 = temp_parent_1.players[i]
-            random_player2 = temp_parent_2.players[i]
-        else:
-            random_player1 = temp_parent_2.players[i]
-            random_player2 = temp_parent_1.players[i]
+            child_team1.players.append(random_player1)
+            child_team2.players.append(random_player2)
 
-        child_team1.players.append(random_player1)
-        child_team2.players.append(random_player2)
+        child_team1.calculate_fitness()
+        child_team2.calculate_fitness()
 
-    child_team1.calculate_fitness()
-    child_team2.calculate_fitness()
+        return [child_team1, child_team2]
 
-    return [child_team1, child_team2]
+    def mutate_population(self, population, mutation_rate):
+        if random.random() < mutation_rate:
+            random_index = random.randint(0, len(population) - 1)
+            population[random_index] = self.mutate(population[random_index])
+        return population
 
+    def mutate(self, individual):
+        random_team_player = randint(0, Team.players_count - 1)
+        del individual.players[random_team_player]
+        individual.players.append(self.player_model.select_random_players())
+        individual.calculate_fitness()
 
-def mutate_population(population, mutation_rate):
-    if random.random() < mutation_rate:
-        random_index = random.randint(0, len(population) - 1)
-        population[random_index] = mutate(population[random_index])
-    return population
+        return individual
 
+    def genetic_algorithm(self, individuals, elite_size, mutation_rate):
+        progress = []
 
-def mutate(individual):
-    random_team_player = randint(0, Team.players_count - 1)
-    del individual.players[random_team_player]
-    individual.players.append(player_model.select_random_players())
-    individual.calculate_fitness()
-
-    return individual
-
-
-def genetic_algorithm(individuals, elite_size, mutation_rate, tactic):
-    progress = []
-
-    print('Checking against: %s' % str(tactic))
-    population = initial_population(individuals, tactic)
-    best_team = best_teams(population)[0]
-    progress.append(best_team.fitness)
-    print(" ... Random generation best team: %s has fitness: %s " % (
-        best_team.get_team_positions(), str(best_team.fitness)))
-
-    stabilised = False
-    i = 0
-    while not stabilised:
-        population = next_generation(population, elite_size, mutation_rate, tactic)
-        best_team = best_teams(population)[0]
-        print(" ... Generation number %s, best team: %s has fitness: %s " % (
-            i, best_team.get_team_positions(), str(best_team.fitness)))
+        print('Checking against: %s' % str(self.formation))
+        population = self.initial_population(individuals)
+        best_team = self.best_teams(population)[0]
         progress.append(best_team.fitness)
-        i += 1
-        if len(set(progress[-50:])) == 1:
-            stabilised = True
+        print(" ... Random generation best team: %s has fitness: %s " % (
+            best_team.get_team_positions(), str(best_team.fitness)))
 
-    print(' ')
-    print(" Final result: best team: %s has fitness: %s " % (
-        best_team.get_team_positions(), str(best_team.fitness)))
-    print(best_team.get_team_positions())
-    print("Best team of all generations had fitness: %s" % max(progress))
-    best_team.display_players()
+        stabilised = False
+        i = 0
+        while not stabilised:
+            population = self.next_generation(population, elite_size, mutation_rate)
+            best_team = self.best_teams(population)[0]
+            print(" ... Generation number %s, best team: %s has fitness: %s " % (
+                i, best_team.get_team_positions(), str(best_team.fitness)))
+            progress.append(best_team.fitness)
+            i += 1
+            if len(set(progress[-50:])) == 1:
+                stabilised = True
 
-    plt.plot(progress)
-    plt.ylabel('Fitness')
-    plt.xlabel('Generations')
-    # plt.show()
+        print(' ')
+        print(" Final result: best team: %s has fitness: %s " % (
+            best_team.get_team_positions(), str(best_team.fitness)))
+        print(best_team.get_team_positions())
+        print("Best team of all generations had fitness: %s" % max(progress))
+        best_team.display_players()
 
+        plt.plot(progress)
+        plt.ylabel('Fitness')
+        plt.xlabel('Generations')
+        # plt.show()
 
-try:
-    conn = MongoClient()
-    print("Connected successfully!!!")
-except:
-    print("Could not connect to MongoDB")
-
-player_model = Player(conn)
-
-selected_tactic = random.sample(Team.tactics, 1)[0]
-
-genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1, tactic=selected_tactic)
+    def run(self):
+        self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
 
 # TOURNAMENT_PLAYERS = 2
 #
