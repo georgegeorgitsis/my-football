@@ -9,9 +9,7 @@ import random
 class Ga:
 
     def __init__(self, selected_formation_index):
-
         self.conn = MongoClient()
-        self.selected_formation_index = selected_formation_index
         self.formation = Team.formations[selected_formation_index]
         self.player_model = Player(self.conn)
 
