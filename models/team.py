@@ -16,8 +16,10 @@ class Team(Base):
         ['GK', 'LB', 'CB', 'CB', 'RB', 'DM', 'CM', 'CM', 'LW', 'RW', 'ST'],  # 4-1-2-3
         ['GK', 'LB', 'CB', 'CB', 'RB', 'CM', 'CM', 'CM', 'LW', 'RW', 'ST'],  # 4-3-3
         ['GK', 'LB', 'CB', 'CB', 'RB', 'CM', 'CM', 'CM', 'AM', 'AM', 'ST'],  # 4-3-2-1
+        ['GK', 'LWB', 'CB', 'CB', 'CB', 'RWB', 'DM', 'CM', 'CM', 'ST', 'ST'],  # 5-1-2-2
+        ['GK', 'LWB', 'CB', 'CB', 'CB', 'RWB', 'DM', 'LM', 'CM', 'RM', 'ST'],  # 5-1-3-1
         ['GK', 'LWB', 'CB', 'CB', 'CB', 'RWB', 'CM', 'CM', 'CM', 'ST', 'ST'],  # 5-3-2
-        ['GK', 'LWB', 'CB', 'CB', 'CB', 'RWB', 'LM', 'CM', 'CM', 'RM', 'ST'],  # 5-3-2
+        ['GK', 'LWB', 'CB', 'CB', 'CB', 'RWB', 'LM', 'CM', 'CM', 'RM', 'ST'],  # 5-4-1
         ['GK', 'CB', 'CB', 'CB', 'LM', 'CM', 'CM', 'RM', 'LW', 'RW', 'ST'],  # 3-4-3
         ['GK', 'CB', 'CB', 'CB', 'DM', 'DM', 'LM', 'RM', 'AM', 'ST', 'ST'],  # 3-5-2
         ['GK', 'CB', 'CB', 'CB', 'DM', 'DM', 'LM', 'RM', 'AM', 'AM', 'ST'],  # 3-6-1
