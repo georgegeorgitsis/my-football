@@ -1,0 +1,29 @@
+version: '3.5'
+networks:
+  clust:
+    ipam:
+      driver: default
+      config:
+        - subnet: 170.24.0.0/16
+
+services:
+  mongoDB:
+    image: mongo
+    ports:
+      - "27020:27020"
+    networks:
+      clust:
+        ipv4_address: 170.24.0.1
+    volumes:
+      - .:/data/db
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    networks:
+      clust:
+        ipv4_address: 170.24.0.2
+    volumes:
+      - .:/src
+    links:
+      - mongoDB
