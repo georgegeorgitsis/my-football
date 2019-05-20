@@ -1,8 +1,6 @@
 from models.player import Player
 from models.team import Team
-from pymongo import MongoClient
 from random import randint
-import matplotlib.pyplot as plt
 import random
 
 
@@ -10,8 +8,8 @@ class Ga:
     formation = None
     termination_after = -50
 
-    def __init__(self, formation_index):
-        self.conn = MongoClient()
+    def __init__(self, conn, formation_index):
+        self.conn = conn
         self.formation_index = formation_index
         self.formation = Team.formations[formation_index]
         self.player_model = Player(self.conn)
