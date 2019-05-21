@@ -12,5 +12,4 @@ try:
     ga = Ga(conn, answers["formation"])
     ga.run()
 except Exception as ex:
-    print(ex)
     print('exception')
