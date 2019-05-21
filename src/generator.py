@@ -14,7 +14,7 @@ parser.add_argument("--fields", help="Create fields", type=int)
 args = parser.parse_args()
 
 try:
-    conn = MongoClient()
+    conn = MongoClient(host=['152.23.0.2'])
     print("Connected successfully!!!")
 except:
     print("Could not connect to MongoDB")

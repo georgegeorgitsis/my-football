@@ -50,4 +50,4 @@ class Player(Base):
         return randint(1, self.max_skillset)
 
     def generate_leader(self):
-        return 1 if random.random() > 0.15 else 0
+        return 1 if random.random() < 0.2 else 0
