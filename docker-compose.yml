@@ -1,0 +1,31 @@
+version: '3.5'
+networks:
+  net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 152.23.0.0/16
+services:
+  db:
+    image: mongo:latest
+    networks:
+      net:
+        ipv4_address: 152.23.0.2
+    volumes:
+      - ./data/db:/var/micro-data/mongodb/data/db
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+  app:
+    build: .
+    environment:
+      - bootstrap.memory_lock=true
+    tty: true
+    volumes:
+      - .:/source
+    privileged: true
+    depends_on:
+      - db
+    networks:
+      net:
+        ipv4_address: 152.23.0.3

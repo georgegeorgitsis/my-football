@@ -1,11 +1,16 @@
+.idea/*
+.data/*
+
 # Byte-compiled / optimized / DLL files
-.idea/
 __pycache__/
 *.py[cod]
 *$py.class
 
 # C extensions
 *.so
+
+data/
+.data/
 
 # Distribution / packaging
 .Python
