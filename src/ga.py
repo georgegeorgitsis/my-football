@@ -112,7 +112,6 @@ class Ga:
 
     def genetic_algorithm(self, individuals, elite_size, mutation_rate):
         progress = []
-
         print('Checking against: %s %s' % (self.formation_index, str(self.formation)))
         population = self.initial_population(individuals)
         best_team = self.best_teams(population)[0]

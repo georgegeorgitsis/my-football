@@ -1,1 +1,0 @@
-MONGO_INITDB_DATABASE = database

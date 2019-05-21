@@ -7,16 +7,10 @@ networks:
         - subnet: 152.23.0.0/16
 services:
   db:
-    image: mongo:3.0.2
+    image: mongo:latest
     networks:
       net:
         ipv4_address: 152.23.0.2
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - MONGODB_USERNAME=test
-      - MONGODB_PASSWORD=test123
-      - MONGODB_DATABASE=test1
     volumes:
       - ./data/db:/var/micro-data/mongodb/data/db
     ports:
@@ -27,8 +21,6 @@ services:
     environment:
       - bootstrap.memory_lock=true
     tty: true
-    ports:
-      - 8383:8383
     volumes:
       - .:/source
     privileged: true
