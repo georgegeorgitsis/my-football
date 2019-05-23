@@ -132,16 +132,11 @@ class Ga:
                 stabilised = True
 
         print(' ')
-        print('Result for formation: %s' % self.formation)
-        print("-Best team formation: %s has fitness: %s " % (best_team.get_team_positions(), str(best_team.fitness)))
+        print('Results for formation: %s' % self.formation)
+        print('-Best team formation: %s has fitness: %s ' % (best_team.get_team_positions(), str(best_team.fitness)))
         print(' ')
-        print('Players:')
-
-        res = sorted(best_team.display_players(), key=lambda item: self.formation)
-
-        print('Sorted res %s' % res)
+        print('Players')
         best_team.display_players()
-        print(' ')
         print("Best team of all generations had fitness: %s" % max(progress))
 
         # plt.plot(progress)

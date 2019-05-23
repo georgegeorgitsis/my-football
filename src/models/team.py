@@ -90,9 +90,7 @@ class Team(Base):
         for i in self.players:
             temp.append(i['position'])
 
-        result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
-
-        return result
+        return sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
 
     def add_player(self, player):
         self.players.append(player)
