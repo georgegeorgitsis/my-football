@@ -2,7 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c17f3df7-e9b3-4708-ab61-ee35b4cd49b4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.data/db/WiredTiger" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/WiredTiger.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/WiredTiger.turtle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/WiredTiger.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/WiredTigerLAS.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/_mdb_catalog.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/collection-0--8194641083763331427.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/collection-2--8194641083763331427.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/collection-4--8194641083763331427.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/diagnostic.data/metrics.2019-05-19T18-28-07Z-00000" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/index-1--8194641083763331427.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/index-3--8194641083763331427.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/index-5--8194641083763331427.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/index-6--8194641083763331427.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/journal/WiredTigerLog.0000000001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/journal/WiredTigerPreplog.0000000001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/journal/WiredTigerPreplog.0000000002" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/mongod.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/sizeStorer.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.data/db/storage.bson" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+            <state relative-caret-position="90">
+              <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -124,9 +145,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1680" />
-    <option name="height" value="987" />
+    <option name="x" value="-1545" />
+    <option name="y" value="-121" />
+    <option name="width" value="1280" />
+    <option name="height" value="737" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -140,16 +162,6 @@
             <path>
               <item name="football" type="b2602c69:ProjectViewProjectNode" />
               <item name="football" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="football" type="b2602c69:ProjectViewProjectNode" />
-              <item name="football" type="462c0819:PsiDirectoryNode" />
-              <item name=".data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="football" type="b2602c69:ProjectViewProjectNode" />
-              <item name="football" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="football" type="b2602c69:ProjectViewProjectNode" />
@@ -200,10 +212,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="987" extended-state="0" />
+    <frame x="-1545" y="-121" width="1280" height="737" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1482821" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19539317" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -297,8 +309,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+        <state relative-caret-position="90">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
         </state>
       </provider>
     </entry>
