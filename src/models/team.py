@@ -24,12 +24,12 @@ class Team(Base):
         '3-6-1': ['GK', 'CB', 'CB', 'CB', 'DM', 'DM', 'LM', 'RM', 'AM', 'AM', 'ST']
     }
 
-    def __init__(self, conn, player_model, tactic):
+    def __init__(self, conn, player_model, formation):
         super(Team, self).__init__(conn)
         self._collection = self._db.teams
         self.playerModel = player_model
         self.players = []
-        self.tactic = tactic
+        self.formation = formation
 
     def create(self, items):
         print("NOT Creating teams:")
@@ -56,7 +56,7 @@ class Team(Base):
         for i in self.players:
             temp_positions.append(i['position'])
 
-        diff = sum((Counter(self.tactic) - Counter(temp_positions)).values())
+        diff = sum((Counter(self.formation) - Counter(temp_positions)).values())
         tactic_score = Team.players_count - diff
         return self.normalize_value(tactic_score, 0, Team.players_count)
 

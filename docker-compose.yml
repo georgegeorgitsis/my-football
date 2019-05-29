@@ -22,7 +22,7 @@ services:
       - bootstrap.memory_lock=true
     tty: true
     volumes:
-      - .:/source
+      - .:/my-football
     privileged: true
     depends_on:
       - db

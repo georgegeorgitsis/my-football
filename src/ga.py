@@ -145,7 +145,7 @@ class Ga:
         # plt.show()
 
     def run(self):
-        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
+        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=0.4)
 
     @staticmethod
     def best_teams(population):
