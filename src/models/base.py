@@ -8,9 +8,6 @@ import random
 
 
 class Base(ABC):
-    DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
-    TCI_GEN_LABEL = 99
-
     _conn = None
     _db = None
     _collection = None

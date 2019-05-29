@@ -40,17 +40,6 @@ class Team(Base):
         for record in cursor:
             print(record)
 
-    # def fitness_positions_uniq_check(self):
-    #     temp = []
-    #     for i in self.players:
-    #         temp.append(i['position'])
-    #
-    #     uniqueness = len(set(temp))
-    #     score = self.normalize_value(uniqueness, 0, 11)
-    #     result = sorted(temp, key=lambda x: Base._positions.index(x) if x in Base._positions else len(Base._positions))
-    #     print('Team: %s has uniqueness: %s and score: %s' % (str(result), uniqueness, score))
-    #     return score
-
     def fitness_against_tactic(self):
         temp_positions = []
         for i in self.players:
