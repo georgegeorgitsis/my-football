@@ -30,7 +30,7 @@ Each Team is created for the genetic algorithm purposes and is having a formatio
 
     
 
-#####(GA)
+###### (GA)
 My Football GA uses population of 800 individuals, elitism of 20 and 0.4 change of mutation.
 `Individual: Team`
 `Gene: Player`
@@ -40,9 +40,9 @@ My Football GA uses population of 800 individuals, elitism of 20 and 0.4 change 
 - Mutation (0.4)
 - Termination (check the last 50 best individuals if it reached the maximum fitness)
 
-#####Fitness 
+###### Fitness 
 The team fitness is calculated based on 3 factors. 
 - Formation 
 - Summarize of skillset
-- Having 1 leader in team
+- 1 leader in team
 
