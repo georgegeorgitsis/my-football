@@ -10,13 +10,10 @@ My Football is a command line script that quickly finds the best team out of tho
 
 The application was built using `python 3.6`, `mongoDB 4.0`, `docker-compose` and `Genetic Algorithms` 
 
-### Installation
-```
-$ git clone git@github.com:georgegeorgitsis/my-football.git
-```
 
-### How to run
+### Installation - How to run
 ```
+$ git clone https://github.com/georgegeorgitsis/my-football
 $ docker-compose up -d && docker-compose exec app bash
 $ cd my-football/src
 $ python generator.py —player 10000
@@ -28,8 +25,7 @@ The structure of My Football is quite simple. It consists of 2 entities, a `Team
 Each Player is randomly created and is having a string name, string surname, int age, string position, int skillset and a bool leader.
 Each Team is created for the genetic algorithm purposes and is having a formation.
 
-    
-##### (GA)
+#### (GA)
 My Football GA uses population of 800 individuals, elitism of 20 and 0.4 change of mutation.
 
 - Elitism (20 individuals)
@@ -38,7 +34,7 @@ My Football GA uses population of 800 individuals, elitism of 20 and 0.4 change 
 - Mutation (0.4)
 - Termination (last 50 best individuals)
 
-##### Fitness 
+#### Fitness 
 The team fitness is calculated based on 3 factors. 
 - Formation 
 - Summarize of skillset
