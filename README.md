@@ -29,16 +29,14 @@ Each Player is randomly created and is having a string name, string surname, int
 Each Team is created for the genetic algorithm purposes and is having a formation.
 
     
-
 ###### (GA)
 My Football GA uses population of 800 individuals, elitism of 20 and 0.4 change of mutation.
-`Individual: Team`
-`Gene: Player`
+
 - Elitism (20 individuals)
 - Roulette selection
 - Uniform crossover (random selection between parents)
 - Mutation (0.4)
-- Termination (check the last 50 best individuals if it reached the maximum fitness)
+- Termination (last 50 best individuals)
 
 ###### Fitness 
 The team fitness is calculated based on 3 factors. 
