@@ -16,7 +16,7 @@ The application was built using `python 3.6`, `mongoDB 4.0`, `docker-compose` an
 $ git clone https://github.com/georgegeorgitsis/my-football
 $ docker-compose up -d && docker-compose exec app bash
 $ cd my-football/src
-$ python generator.py —player 10000
+$ python generator.py --players 10000
 $ python init.py
 ```
 
@@ -31,7 +31,7 @@ My Football GA uses population of 800 individuals, elitism of 20 and 0.4 change 
 - Elitism (20 individuals)
 - Roulette selection
 - Uniform crossover (random selection between parents)
-- Mutation (0.4)
+- Mutation (1)
 - Termination (last 50 best individuals)
 
 #### Fitness 

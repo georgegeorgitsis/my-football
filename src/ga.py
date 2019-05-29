@@ -139,13 +139,8 @@ class Ga:
         best_team.display_players()
         print("Best team of all generations had fitness: %s" % max(progress))
 
-        # plt.plot(progress)
-        # plt.ylabel('Fitness')
-        # plt.xlabel('Generations')
-        # plt.show()
-
     def run(self):
-        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=0.4)
+        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
 
     @staticmethod
     def best_teams(population):
