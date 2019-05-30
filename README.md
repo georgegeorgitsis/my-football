@@ -26,7 +26,7 @@ Each Player is randomly created and is having a string name, string surname, int
 Each Team is created for the genetic algorithm purposes and is having a formation.
 
 #### (GA)
-My Football GA uses population of 800 individuals, elitism of 20 and 0.4 change of mutation.
+My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of mutation.
 
 - Elitism (20 individuals)
 - Roulette selection
