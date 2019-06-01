@@ -141,7 +141,7 @@ class Ga:
 
     def run(self):
         print('Starting Genetic Algorithm ...')
-        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=0.2)
+        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
 
     @staticmethod
     def best_teams(population):
@@ -153,8 +153,8 @@ class Ga:
         print('Formation: %s ' % str(self.formation))
 
         for i in range(5, 0, -1):
-            time.sleep(1)
             print(i)
+            time.sleep(1)
 
     def print_results(self, best_team, progress):
         print(' ')
@@ -176,4 +176,4 @@ class Ga:
         plt.ylabel('Fitness')
         plt.xlabel('Generations')
         fig.savefig('progress/' + filename, dpi=fig.dpi)
-        print('You can check the generated .png file inside src/progress')
+        print('You can check the generated %s file inside src/progress' % filename)

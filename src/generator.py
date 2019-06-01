@@ -16,7 +16,6 @@ try:
     load_dotenv(find_dotenv())
     MONGO_IP = os.environ.get("MONGODB_IP")
     conn = MongoClient(host=[MONGO_IP])
-    print("Connected successfully!!!")
 except:
     print("Could not connect to MongoDB")
 

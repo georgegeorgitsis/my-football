@@ -95,7 +95,7 @@ My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of
 - Elitism (20 individuals)
 - Roulette selection
 - Uniform crossover (random selection between parents)
-- Mutation (1)
+- Mutation
 - Termination (last 50 best individuals is not changing fitness)
 
 After every run of the GA, you can find the progress graph as a png inside `src/progress/` having the chosen formation and the current datetime as title. 
