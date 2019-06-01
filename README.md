@@ -34,7 +34,7 @@ since we use populations of 800 teams, multiplied by 11 players for each team.
 
 The different combinations of finding the best r(11) players for team out of n(10000) players is produced via the formula 
 `C(n,r) = n!/(r!(n−r)!)`. That said, the different combinations are more than `2370686044157731915491600000`   
-
+---
 ### Player 
 
 #### Name/surname
@@ -52,7 +52,7 @@ Age is also randomly selected between 18 and 35.
 #### Captain
 Captainship is assigned to players with a chance of 0.2. Captain value 1 means that the player 
 is having a captain role in the team.
-
+---
 ### Team 
 A team has always 11 players and a specific selected formation
 
@@ -81,6 +81,7 @@ A team is evaluated for it's score based on the following criteria:
 - The number of captains in the team. Best scenario is having 1 captain in the team.
 - The age of the players. The younger the team the better.
 
+---
 ### (GA)
 My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of mutation.
 
