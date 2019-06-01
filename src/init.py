@@ -1,4 +1,4 @@
-from ga import Ga
+from services.ga import Ga
 from models.team import Team
 from pymongo import MongoClient
 from dotenv import find_dotenv, load_dotenv

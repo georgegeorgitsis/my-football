@@ -27,6 +27,44 @@ The structure of My Football is quite simple. It consists of 2 entities, a `Team
 Each Player is randomly created and is having a string name, string surname, int age, string position, int skillset and a bool leader.
 Each Team is created for the genetic algorithm purposes and is having a formation.
 
+#### Player 
+
+##### Name/surname
+Names, surnames, characteristics etc. of players are randomly created. Any resemblance to actual players or positions or formations, is entirely coincidental.  
+
+##### Positions
+Each player has a specific position in the field and it is randomly assigned to him via the generator.py
+`'GK', 'LB', 'CB', 'RB', 'LWB', 'RWB', 'LM', 'DM', 'CM', 'RM', 'AM', 'LW', 'RW', 'CF', 'ST'`
+
+##### Age / Skillset
+Age and skillset is also randomly assigned to a player via the generator.py.
+Skillset is a random number between 1 and 10, while 10 is the maximum. 
+Age is also randomly selected between 18 and 35.
+
+##### Leader
+Leadership is assigned to players with a chance of 0.2. Leader with value 1 means that the player 
+is having a captain role in the team.
+
+#### Team 
+
+##### Formations
+```
+4-4-2: [GK, LB, CB, CB, RB, LM, CM, CM, RM, ST, ST]
+4-4-1-1: [GK, LB, CB, CB, RB, LM, CM, CM, RM, AM, ST]
+4-2-3-1: [GK, LB, CB, CB, RB, DM, DM, AM, LW, RW, ST],
+4-2-2-2: [GK, LWB, CB, CB, RWB, DM, DM, AM, AM, ST, ST],
+4-1-2-3: [GK, LB, CB, CB, RB, DM, CM, CM, LW, RW, ST],
+4-3-3: [GK, LB, CB, CB, RB, CM, CM, CM, LW, RW, ST],
+4-3-2-1: [GK, LB, CB, CB, RB, CM, CM, CM, AM, AM, ST],
+5-1-2-2: [GK, LWB, CB, CB, CB, RWB, DM, CM, CM, ST, ST],
+5-1-3-1: [GK, LWB, CB, CB, CB, RWB, DM, LM, CM, RM, ST],
+5-3-2: [GK, LWB, CB, CB, CB, RWB, CM, CM, CM, ST, ST],
+5-4-1: [GK, LWB, CB, CB, CB, RWB, LM, CM, CM, RM, ST],
+3-4-3: [GK, CB, CB, CB, LM, CM, CM, RM, LW, RW, ST],
+3-5-2: [GK, CB, CB, CB, DM, DM, LM, RM, AM, ST, ST],
+3-6-1: [GK, CB, CB, CB, DM, DM, LM, RM, AM, AM, ST]
+```
+
 #### (GA)
 My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of mutation.
 

@@ -57,19 +57,19 @@ class Team(Base):
 
         return self.normalize_value(skillset_score, 0, Team.players_count * self.playerModel.max_skillset)
 
-    def fitness_against_leadership(self):
-        leader_sum = 0
+    def fitness_against_captains(self):
+        captain_sum = 0
 
         for i in self.players:
-            leader_sum += i['leader']
+            captain_sum += i['captain']
 
-        # we need at least one leader in a team
-        leadership_score = 4 if leader_sum == 0 else Team.players_count - leader_sum
+        # we need at least one captain in a team
+        captain_score = 4 if captain_sum == 0 else Team.players_count - captain_sum
 
-        return self.normalize_value(leadership_score, 0, Team.players_count)
+        return self.normalize_value(captain_score, 0, Team.players_count)
 
     def calculate_fitness(self):
-        self.fitness = self.fitness_against_tactic() + self.fitness_against_skillset() + self.fitness_against_leadership()
+        self.fitness = self.fitness_against_tactic() + self.fitness_against_skillset() + self.fitness_against_captains()
 
         self.fitness = self.fitness * 1000
         return self.fitness

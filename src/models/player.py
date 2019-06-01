@@ -21,7 +21,7 @@ class Player(Base):
                 "age": self.generate_age(),
                 "position": self.generate_position()[0],
                 "skillset": self.generate_random_skill(),
-                "leader": self.generate_leader()
+                "captain": self.generate_captain()
             }
             self._collection.insert_one(temp)
             self.print_dot()
@@ -50,5 +50,5 @@ class Player(Base):
     def generate_random_skill(self):
         return randint(1, self.max_skillset)
 
-    def generate_leader(self):
+    def generate_captain(self):
         return 1 if random.random() < 0.2 else 0

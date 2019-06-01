@@ -44,7 +44,7 @@ class Base(ABC):
 
     @staticmethod
     def print_dot():
-        print('.', end='')
+        print('.', end='', flush=True)
 
     @staticmethod
     def generate_position():
