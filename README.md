@@ -22,6 +22,8 @@ $ python generator.py --players 10000
 $ python init.py
 ```
 
+---
+
 ### Structure 
 The structure of My Football is quite simple. It consists of 2 entities, a `Team` and a `Player`.
 Each Player is randomly created and is having a string name, string surname, int age, string position, int skillset and a flag captain.
