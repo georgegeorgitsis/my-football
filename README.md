@@ -24,7 +24,7 @@ $ python init.py
 
 ### Structure 
 The structure of My Football is quite simple. It consists of 2 entities, a `Team` and a `Player`.
-Each Player is randomly created and is having a string name, string surname, int age, string position, int skillset and a bool leader.
+Each Player is randomly created and is having a string name, string surname, int age, string position, int skillset and a flag captain.
 Each Team is created for the genetic algorithm purposes and is having a formation.
 
 ### Player 
@@ -41,8 +41,8 @@ Age and skillset is also randomly assigned to a player via the generator.py.
 Skillset is a random number between 1 and 10, while 10 is the maximum. 
 Age is also randomly selected between 18 and 35.
 
-#### Leader
-Leadership is assigned to players with a chance of 0.2. Leader with value 1 means that the player 
+#### Captain
+Captainship is assigned to players with a chance of 0.2. Captain value 1 means that the player 
 is having a captain role in the team.
 
 ### Team 
