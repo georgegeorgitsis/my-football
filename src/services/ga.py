@@ -4,6 +4,7 @@ from random import randint
 import random
 import matplotlib.pyplot as plt
 import datetime
+import time
 
 
 class Ga:
@@ -114,11 +115,13 @@ class Ga:
 
     def genetic_algorithm(self, individuals, elite_size, mutation_rate):
         progress = []
-        print('Checking against: %s %s' % (self.formation_index, str(self.formation)))
+        self.initial_print()
+
         population = self.initial_population(individuals)
         best_team = self.best_teams(population)[0]
         progress.append(best_team.fitness)
-        print(" ... Random generation best team: %s has fitness: %s " % (
+        print(' ')
+        print("... Random generation best team: %s has fitness: %s " % (
             best_team.get_team_positions(), str(best_team.fitness)))
 
         stabilised = False
@@ -126,7 +129,7 @@ class Ga:
         while not stabilised:
             population = self.next_generation(population, elite_size, mutation_rate)
             best_team = self.best_teams(population)[0]
-            print(" ... Generation number %s, best team: %s has fitness: %s " % (
+            print("... Generation %s, best team: %s fitness: %s " % (
                 i, best_team.get_team_positions(), str(best_team.fitness)))
             progress.append(best_team.fitness)
             i += 1
@@ -143,6 +146,15 @@ class Ga:
     @staticmethod
     def best_teams(population):
         return sorted(population, key=lambda team: team.fitness, reverse=True)
+
+    def initial_print(self):
+        print(' ')
+        print('Checking against: %s ' % self.formation_index)
+        print('Formation: %s ' % str(self.formation))
+
+        for i in range(5, 0, -1):
+            time.sleep(1)
+            print(i)
 
     def print_results(self, best_team, progress):
         print(' ')
