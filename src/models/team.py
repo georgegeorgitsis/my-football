@@ -40,7 +40,7 @@ class Team(Base):
         for record in cursor:
             print(record)
 
-    def fitness_against_tactic(self):
+    def fitness_against_formation(self):
         temp_positions = []
         for i in self.players:
             temp_positions.append(i['position'])
@@ -57,20 +57,32 @@ class Team(Base):
 
         return self.normalize_value(skillset_score, 0, Team.players_count * self.playerModel.max_skillset)
 
+    def fitness_against_age(self):
+        age_score = 0
+
+        for i in self.players:
+            age_score += i['age']
+
+        # The younger the team the better
+        return 1 - self.normalize_value(age_score, self.players_count * self.playerModel.minimum_age,
+                                        self.players_count * self.playerModel.maximum_age)
+
     def fitness_against_captains(self):
         captain_sum = 0
 
         for i in self.players:
             captain_sum += i['captain']
 
-        # we need at least one captain in a team
+        # we need at least one captain in a team. Having none takes the same score as having 4 captains
         captain_score = 4 if captain_sum == 0 else Team.players_count - captain_sum
 
         return self.normalize_value(captain_score, 0, Team.players_count)
 
     def calculate_fitness(self):
-        self.fitness = self.fitness_against_tactic() + self.fitness_against_skillset() + self.fitness_against_captains()
+        self.fitness = self.fitness_against_formation() + self.fitness_against_skillset() \
+                       + self.fitness_against_captains() + self.fitness_against_age()
 
+        # For visual purposes multiply 1000
         self.fitness = self.fitness * 1000
         return self.fitness
 

@@ -46,24 +46,32 @@ Leadership is assigned to players with a chance of 0.2. Leader with value 1 mean
 is having a captain role in the team.
 
 #### Team 
+A team has always 11 players and a specific selected formation
 
 ##### Formations
 ```
 4-4-2: [GK, LB, CB, CB, RB, LM, CM, CM, RM, ST, ST]
 4-4-1-1: [GK, LB, CB, CB, RB, LM, CM, CM, RM, AM, ST]
-4-2-3-1: [GK, LB, CB, CB, RB, DM, DM, AM, LW, RW, ST],
-4-2-2-2: [GK, LWB, CB, CB, RWB, DM, DM, AM, AM, ST, ST],
-4-1-2-3: [GK, LB, CB, CB, RB, DM, CM, CM, LW, RW, ST],
-4-3-3: [GK, LB, CB, CB, RB, CM, CM, CM, LW, RW, ST],
-4-3-2-1: [GK, LB, CB, CB, RB, CM, CM, CM, AM, AM, ST],
-5-1-2-2: [GK, LWB, CB, CB, CB, RWB, DM, CM, CM, ST, ST],
-5-1-3-1: [GK, LWB, CB, CB, CB, RWB, DM, LM, CM, RM, ST],
-5-3-2: [GK, LWB, CB, CB, CB, RWB, CM, CM, CM, ST, ST],
-5-4-1: [GK, LWB, CB, CB, CB, RWB, LM, CM, CM, RM, ST],
-3-4-3: [GK, CB, CB, CB, LM, CM, CM, RM, LW, RW, ST],
-3-5-2: [GK, CB, CB, CB, DM, DM, LM, RM, AM, ST, ST],
+4-2-3-1: [GK, LB, CB, CB, RB, DM, DM, AM, LW, RW, ST]
+4-2-2-2: [GK, LWB, CB, CB, RWB, DM, DM, AM, AM, ST, ST]
+4-1-2-3: [GK, LB, CB, CB, RB, DM, CM, CM, LW, RW, ST]
+4-3-3: [GK, LB, CB, CB, RB, CM, CM, CM, LW, RW, ST]
+4-3-2-1: [GK, LB, CB, CB, RB, CM, CM, CM, AM, AM, ST]
+5-1-2-2: [GK, LWB, CB, CB, CB, RWB, DM, CM, CM, ST, ST]
+5-1-3-1: [GK, LWB, CB, CB, CB, RWB, DM, LM, CM, RM, ST]
+5-3-2: [GK, LWB, CB, CB, CB, RWB, CM, CM, CM, ST, ST]
+5-4-1: [GK, LWB, CB, CB, CB, RWB, LM, CM, CM, RM, ST]
+3-4-3: [GK, CB, CB, CB, LM, CM, CM, RM, LW, RW, ST]
+3-5-2: [GK, CB, CB, CB, DM, DM, LM, RM, AM, ST, ST]
 3-6-1: [GK, CB, CB, CB, DM, DM, LM, RM, AM, AM, ST]
 ```
+
+##### Fitness / Score of team
+A team is evaluated for it's score based on the following criteria:
+- The number of matching positions of the players compared to the selected formation for the team
+- The sum of the skillset of the players in the team
+- The number of captains in the team. Best scenario is having 1 captain in the team.
+- The age of the players. The younger the team the better.
 
 #### (GA)
 My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of mutation.
@@ -72,10 +80,4 @@ My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of
 - Roulette selection
 - Uniform crossover (random selection between parents)
 - Mutation (1)
-- Termination (last 50 best individuals)
-
-#### Fitness 
-The team fitness is calculated based on 3 factors. 
-- Formation 
-- Summarize of skillset
-- 1 leader in team
+- Termination (last 50 best individuals is not changing)

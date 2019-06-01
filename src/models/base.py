@@ -62,7 +62,3 @@ class Base(ABC):
             else:
                 word += random.choice(vowels)
         return word
-
-    @staticmethod
-    def generate_age():
-        return randint(18, 35)

@@ -6,6 +6,8 @@ import random
 class Player(Base):
     name = None
     max_skillset = 10
+    minimum_age = 18
+    maximum_age = 35
 
     def __init__(self, conn):
         super(Player, self).__init__(conn)
@@ -52,3 +54,6 @@ class Player(Base):
 
     def generate_captain(self):
         return 1 if random.random() < 0.2 else 0
+
+    def generate_age(self):
+        return randint(self.minimum_age, self.maximum_age)
