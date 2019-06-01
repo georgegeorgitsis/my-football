@@ -4,13 +4,13 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 152.23.0.0/16
+        - subnet: ${NETWORK}
 services:
   db:
     image: mongo:4.0
     networks:
       net:
-        ipv4_address: 152.23.0.2
+        ipv4_address: ${MONGODB_IP}
     volumes:
       - ./data/db:/var/micro-data/mongodb/data/db
     ports:
@@ -18,6 +18,9 @@ services:
     command: mongod --smallfiles --logpath=/dev/null # --quiet
   app:
     build: .
+    networks:
+      net:
+        ipv4_address: ${APP_IP}
     environment:
       - bootstrap.memory_lock=true
     tty: true
@@ -26,6 +29,3 @@ services:
     privileged: true
     depends_on:
       - db
-    networks:
-      net:
-        ipv4_address: 152.23.0.3
