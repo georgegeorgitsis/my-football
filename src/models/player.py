@@ -24,7 +24,8 @@ class Player(Base):
                 "leader": self.generate_leader()
             }
             self._collection.insert_one(temp)
-            self.print_dot(k)
+            self.print_dot()
+        print('Complete')
 
     def display_all_players(self):
         print('Displaying all players...')

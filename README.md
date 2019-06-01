@@ -15,6 +15,7 @@ The application was built using `python 3.6`, `mongoDB 4.0`, `docker-compose` an
 ```
 $ git clone https://github.com/georgegeorgitsis/my-football
 $ cd my-football
+Copy .env.example to .env
 $ docker-compose up -d && docker-compose exec app bash
 $ cd my-football/src
 $ python generator.py --players 10000

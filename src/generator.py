@@ -4,17 +4,18 @@
 import argparse
 from pymongo import MongoClient
 from models.player import Player
+import os
+from dotenv import find_dotenv, load_dotenv
 
 parser = argparse.ArgumentParser(description="Football Generator")
-
 parser.add_argument("--players", help="Create players", type=int)
-
 parser.add_argument("--fields", help="Create fields", type=int)
-
 args = parser.parse_args()
 
 try:
-    conn = MongoClient(host=['152.23.0.2'])
+    load_dotenv(find_dotenv())
+    MONGO_IP = os.environ.get("MONGODB_IP")
+    conn = MongoClient(host=[MONGO_IP])
     print("Connected successfully!!!")
 except:
     print("Could not connect to MongoDB")

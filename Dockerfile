@@ -13,3 +13,5 @@ RUN ln -s /usr/bin/wkhtmltopdf.sh /usr/local/bin/wkhtmltopdf
 RUN pip install pymongo
 
 RUN pip install inquirer
+
+RUN pip install python-dotenv

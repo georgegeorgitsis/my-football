@@ -43,13 +43,8 @@ class Base(ABC):
         return ''.join([random.choice(ascii_letters) for x in range(letters)])
 
     @staticmethod
-    def print_dot(index, batch=10):
-        if index % batch or index == 0:
-            symbol = '.'
-        else:
-            symbol = '.'
-
-        print(symbol, end='', flush=True)
+    def print_dot():
+        print('.', end='')
 
     @staticmethod
     def generate_position():
