@@ -27,28 +27,28 @@ The structure of My Football is quite simple. It consists of 2 entities, a `Team
 Each Player is randomly created and is having a string name, string surname, int age, string position, int skillset and a bool leader.
 Each Team is created for the genetic algorithm purposes and is having a formation.
 
-#### Player 
+### Player 
 
-##### Name/surname
+#### Name/surname
 Names, surnames, characteristics etc. of players are randomly created. Any resemblance to actual players or positions or formations, is entirely coincidental.  
 
-##### Positions
+#### Positions
 Each player has a specific position in the field and it is randomly assigned to him via the generator.py
 `'GK', 'LB', 'CB', 'RB', 'LWB', 'RWB', 'LM', 'DM', 'CM', 'RM', 'AM', 'LW', 'RW', 'CF', 'ST'`
 
-##### Age / Skillset
+#### Age / Skillset
 Age and skillset is also randomly assigned to a player via the generator.py.
 Skillset is a random number between 1 and 10, while 10 is the maximum. 
 Age is also randomly selected between 18 and 35.
 
-##### Leader
+#### Leader
 Leadership is assigned to players with a chance of 0.2. Leader with value 1 means that the player 
 is having a captain role in the team.
 
-#### Team 
+### Team 
 A team has always 11 players and a specific selected formation
 
-##### Formations
+#### Formations
 ```
 4-4-2: [GK, LB, CB, CB, RB, LM, CM, CM, RM, ST, ST]
 4-4-1-1: [GK, LB, CB, CB, RB, LM, CM, CM, RM, AM, ST]
@@ -66,14 +66,14 @@ A team has always 11 players and a specific selected formation
 3-6-1: [GK, CB, CB, CB, DM, DM, LM, RM, AM, AM, ST]
 ```
 
-##### Fitness / Score of team
+#### Fitness / Score of team
 A team is evaluated for it's score based on the following criteria:
 - The number of matching positions of the players compared to the selected formation for the team
 - The sum of the skillset of the players in the team
 - The number of captains in the team. Best scenario is having 1 captain in the team.
 - The age of the players. The younger the team the better.
 
-#### (GA)
+### (GA)
 My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of mutation.
 
 - Elitism (20 individuals)
