@@ -7,3 +7,5 @@ data/
 .env
 env/
 __pycache__/
+
+/src/progress/*

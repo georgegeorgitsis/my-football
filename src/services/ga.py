@@ -3,6 +3,7 @@ from models.team import Team
 from random import randint
 import random
 import matplotlib.pyplot as plt
+import datetime
 
 
 class Ga:
@@ -137,7 +138,7 @@ class Ga:
 
     def run(self):
         print('Starting Genetic Algorithm ...')
-        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
+        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=0.2)
 
     @staticmethod
     def best_teams(population):
@@ -146,16 +147,21 @@ class Ga:
     def print_results(self, best_team, progress):
         print(' ')
         print('Results for formation: %s' % self.formation)
-        print('-Best team formation: %s has fitness: %s ' % (best_team.get_team_positions(), str(best_team.fitness)))
+        print(' ')
+        print('* Best team formation: %s has fitness: %s ' % (best_team.get_team_positions(), str(best_team.fitness)))
         print(' ')
         print('Players')
         best_team.display_players()
+        print(' ')
         print("Best team of all generations had fitness: %s" % max(progress))
 
     def print_plt_progress(self, progress):
+        print(' ')
+        filename = str(self.formation_index) + '_' + str(datetime.datetime.now()) + '.png'
         fig = plt.figure()
         plt.plot(progress)
         plt.title(self.formation_index)
         plt.ylabel('Fitness')
         plt.xlabel('Generations')
-        fig.savefig('progress/temp.png', dpi=fig.dpi)
+        fig.savefig('progress/' + filename, dpi=fig.dpi)
+        print('You can check the generated .png file inside src/progress')

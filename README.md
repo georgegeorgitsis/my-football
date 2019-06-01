@@ -98,4 +98,4 @@ My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of
 - Mutation (1)
 - Termination (last 50 best individuals is not changing fitness)
 
-After every run of the GA, you can find the progress graph as a png inside `src/progress/temp.png` which overrides the previous one.
+After every run of the GA, you can find the progress graph as a png inside `src/progress/` having the chosen formation and the current datetime as title. 
