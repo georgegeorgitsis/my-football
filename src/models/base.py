@@ -1,8 +1,6 @@
 # -*- coding: UTF-8 -*-
 from abc import ABC, abstractmethod
 from string import ascii_letters
-from random import randint
-
 import string
 import random
 
@@ -11,7 +9,7 @@ class Base(ABC):
     _conn = None
     _db = None
     _collection = None
-    _positions = ['GK', 'LB', 'CB', 'RB', 'LWB', 'RWB', 'LM', 'DM', 'CM', 'RM', 'AM', 'LW', 'RW', 'CF', 'ST']
+    _positions = ['GK', 'LB', 'LWB', 'CB', 'RB', 'RWB', 'LM', 'DM', 'CM', 'RM', 'AM', 'LW', 'RW', 'CF', 'ST']
 
     def __init__(self, conn=None):
         self._conn = conn
