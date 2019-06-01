@@ -2,6 +2,7 @@ from models.player import Player
 from models.team import Team
 from random import randint
 import random
+import matplotlib.pyplot as plt
 
 
 class Ga:
@@ -131,6 +132,18 @@ class Ga:
             if len(set(progress[self.termination_after:])) == 1:
                 stabilised = True
 
+        self.print_results(best_team, progress)
+        self.print_plt_progress(progress)
+
+    def run(self):
+        print('Starting Genetic Algorithm ...')
+        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
+
+    @staticmethod
+    def best_teams(population):
+        return sorted(population, key=lambda team: team.fitness, reverse=True)
+
+    def print_results(self, best_team, progress):
         print(' ')
         print('Results for formation: %s' % self.formation)
         print('-Best team formation: %s has fitness: %s ' % (best_team.get_team_positions(), str(best_team.fitness)))
@@ -139,9 +152,10 @@ class Ga:
         best_team.display_players()
         print("Best team of all generations had fitness: %s" % max(progress))
 
-    def run(self):
-        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
-
-    @staticmethod
-    def best_teams(population):
-        return sorted(population, key=lambda team: team.fitness, reverse=True)
+    def print_plt_progress(self, progress):
+        fig = plt.figure()
+        plt.plot(progress)
+        plt.title(self.formation_index)
+        plt.ylabel('Fitness')
+        plt.xlabel('Generations')
+        fig.savefig('progress/temp.png', dpi=fig.dpi)
