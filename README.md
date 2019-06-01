@@ -27,7 +27,7 @@ The structure of My Football is quite simple. It consists of 2 entities, a `Team
 Each Player is randomly created and is having a string name, string surname, int age, string position, int skillset and a flag captain.
 Each Team is created for the genetic algorithm purposes and is having a formation.
 
-#### Generator
+### Generator
 The generator.py simply creates the given amount of players with random attributes in the database. 
 In the `Installation - How to run` section, the example code creates 10000, while they could be more but not lower than 8800,
 since we use populations of 800 teams, multiplied by 11 players for each team. 
