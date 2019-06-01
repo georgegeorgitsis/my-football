@@ -52,6 +52,7 @@ Age is also randomly selected between 18 and 35.
 #### Captain
 Captainship is assigned to players with a chance of 0.2. Captain value 1 means that the player 
 is having a captain role in the team.
+
 ---
 ### Team 
 A team has always 11 players and a specific selected formation
