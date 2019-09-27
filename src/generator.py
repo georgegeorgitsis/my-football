@@ -21,4 +21,5 @@ except:
 
 if args.players:
     player = Player(conn)
+    player.remove_all_players()
     player.create(args.players)

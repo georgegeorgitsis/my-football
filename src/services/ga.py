@@ -84,12 +84,9 @@ class Ga:
         child_team2 = Team(self.conn, Player(self.conn), self.formation)
 
         for i in range(0, Team.players_count):
-            if randint(0, 1) == 1:
-                random_player1 = temp_parent_1.players[i]
-                random_player2 = temp_parent_2.players[i]
-            else:
-                random_player1 = temp_parent_2.players[i]
-                random_player2 = temp_parent_1.players[i]
+            rand = randint(0, 1)
+            random_player1 = temp_parent_1.players[i] if rand == 1 else temp_parent_2.players[i]
+            random_player2 = temp_parent_2.players[i] if rand == 1 else temp_parent_1.players[i]
 
             child_team1.players.append(random_player1)
             child_team2.players.append(random_player2)
@@ -141,7 +138,7 @@ class Ga:
 
     def run(self):
         print('Starting Genetic Algorithm ...')
-        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=1)
+        return self.genetic_algorithm(individuals=800, elite_size=20, mutation_rate=0.1)
 
     @staticmethod
     def best_teams(population):
