@@ -10,6 +10,8 @@ My Football is a command line script that quickly finds the best team out of tho
 
 The application was built using `python 3.6`, `mongoDB 4.0`, `docker-compose` and `Genetic Algorithms` 
 
+### Requirements
+- Install [Docker](https://docs.docker.com/) for your host machine
 
 ### Installation - How to run
 ```
