@@ -49,6 +49,14 @@ class Team(Base):
         tactic_score = Team.players_count - diff
         return self.normalize_value(tactic_score, 0, Team.players_count)
 
+    def fitness_against_players_repetition(self):
+        temp_ids = []
+        for i in self.players:
+            temp_ids.append(str(i['_id']))
+
+        unique_players = len(set(temp_ids))
+        return self.normalize_value(unique_players, 0, Team.players_count)
+
     def fitness_against_skillset(self):
         skillset_score = 0
 
@@ -80,7 +88,8 @@ class Team(Base):
 
     def calculate_fitness(self):
         self.fitness = self.fitness_against_formation() + self.fitness_against_skillset() \
-                       + self.fitness_against_captains() + self.fitness_against_age()
+                       + self.fitness_against_captains() + self.fitness_against_age() \
+                       + self.fitness_against_players_repetition()
 
         # For visual purposes multiply 1000
         self.fitness = self.fitness * 1000
