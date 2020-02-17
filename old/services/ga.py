@@ -1,5 +1,5 @@
-from models.player import Player
-from models.team import Team
+from player import Player
+from team import Team
 from random import randint
 import random
 import matplotlib.pyplot as plt

@@ -8,4 +8,4 @@ data/
 env/
 __pycache__/
 
-/src/progress/*
+/old/progress/*

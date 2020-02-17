@@ -3,7 +3,7 @@
 
 import argparse
 from pymongo import MongoClient
-from models.player import Player
+from player import Player
 import os
 from dotenv import find_dotenv, load_dotenv
 

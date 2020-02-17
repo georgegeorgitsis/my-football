@@ -1,5 +1,5 @@
-from services.ga import Ga
-from models.team import Team
+from ga import Ga
+from team import Team
 from pymongo import MongoClient
 from dotenv import find_dotenv, load_dotenv
 import inquirer
