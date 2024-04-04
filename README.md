@@ -92,7 +92,7 @@ A team is evaluated for it's score based on the following criteria:
 ---
 
 ### (GA)
-My Football GA uses population of 800 individuals, elitism of 20 and 1 chance of mutation.
+My Football GA uses population of 800 individuals, elitism of 20 and 0.01 chance of mutation.
 
 - Elitism (20 individuals)
 - Roulette selection
