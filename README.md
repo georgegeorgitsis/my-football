@@ -36,8 +36,8 @@ The generator.py simply creates the given amount of players with random attribut
 In the `Installation - How to run` section, the example code creates 10000, while they could be more but not lower than 8800,
 since we use populations of 800 teams, multiplied by 11 players for each team. 
 
-The different combinations of finding the best r(11) players for team out of n(10000) players is produced via the formula 
-`C(n,r) = n!/(r!(n−r)!)`. That said, the different combinations are more than `2370686044157731915491600000`   
+The different combinations of finding the best r players for team out of n players is produced via the formula 
+`C(n,r) = n!/r!(n−r)!`. That said, the different combinations are more than `2.5×10^36`   
 
 ---
 
